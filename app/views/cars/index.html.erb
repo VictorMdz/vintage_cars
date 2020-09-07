@@ -1,2 +1,12 @@
 <h1>Car#index</h1>
 <p>Find me in app/views/car/index.html.erb</p>
+
+
+
+<ul>
+    <% @cars.each do |car| %>
+  <li>
+    <%= car.brand %> : <%= car.model %>
+  </li>
+    <% end %>
+</ul>
