@@ -5,14 +5,12 @@ class CarsController < ApplicationController
   def index
     if params[:query].present?
       @query = params[:query]
-      @cars = Car.where("location LIKE '%#{params[:query]}%' ")
-      @cars = policy_scope(Car)
+      @cars = policy_scope(Car).where("location LIKE ?", @query )
     else
-      @cars = Car.all
       @cars = policy_scope(Car)
     end
   end
-  
+
   def show
     authorize @car
   end
