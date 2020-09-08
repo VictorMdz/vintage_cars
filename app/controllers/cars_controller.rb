@@ -6,8 +6,10 @@ class CarsController < ApplicationController
     if params[:query].present?
       @query = params[:query]
       @cars = Car.where("location LIKE '%#{params[:query]}%' ")
+      @cars = policy_scope(Car)
     else
       @cars = Car.all
+      @cars = policy_scope(Car)
     end
   end
   
@@ -38,6 +40,7 @@ class CarsController < ApplicationController
   end
 
   def update
+    authorize @car
     if @car.update(car_params)
       redirect_to @car
     else
@@ -46,6 +49,7 @@ class CarsController < ApplicationController
   end
 
   def destroy
+    authorize @car
     @car.destroy
     redirect_to cars_path
   end
