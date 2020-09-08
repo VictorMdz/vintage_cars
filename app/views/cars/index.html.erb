@@ -14,7 +14,7 @@
   <% @cars.each do |car| %>
     <div class="card mx-3 rounded" style="width: 18rem;">
       <!-- for when we implement cloudinary -->
-      <%= cl_image_tag @car.photo.key, class: "card-img-top" %>
+      <%#= cl_image_tag @car.photo.key, class: "card-img-top" %>
       <img class="card-img-top" src="..." alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
