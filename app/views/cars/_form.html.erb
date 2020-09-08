@@ -1,14 +1,15 @@
 <%= simple_form_for(car) do |f| %>
   <%= f.input :brand %>
   <%= f.input :model %>
-  <%= f.input :description %>
   <%= f.input :year %>
   <%= f.input :license_plate %>
+  <%= f.input :location %>
   <%= f.input :seats %>
   <%= f.input :color %>
   <%= f.input :transmission %>
   <%= f.input :energy_source %>
   <%= f.input :price_per_hour %>
   <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+  <%= f.input :description %>
   <%= f.submit "Submit the car", class: "btn btn-primary" %>
 <% end %>

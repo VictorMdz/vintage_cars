@@ -1,27 +1,26 @@
-<div class="container p-5">
+<div class="container my-5">
   <div class="row justify-content-center">
-    <div class="col-6">
-      <%= form_tag cars_path, method: :get, class: "form-row" do %>
-        <div class="col-8">
-          <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Find a city"
-          %>
-        </div>
-        <div class="col-4">
-          <%= submit_tag "Search", class: "btn btn-outline-success" %>
-        </div>
-      <% end %>
-    </div>
+    <%= form_tag cars_path, method: :get, class: "form-row search-form" do %>
+      <div class="">
+        <%= text_field_tag :query,
+          params[:query],
+          class: "search-bar",
+          placeholder: "Find a city"
+        %>
+      </div>
+      <div class="">
+        <%= submit_tag "Search", class: "search-btn" %>
+      </div>
+    <% end %>
   </div>
 </div>
 
 
-<div class="container background-picture">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-6">
-      <h1>This is our value proposition message</h1>
+<div class="container background-picture my-5">
+  <div class="row p-5">
+    <div class="col-4">
+      <h1 class="font-weight-bolder text-light">Vintage is trendy</h1>
+      <p class="text-light">The moment is now, drive your dream car and feel the old-times</p>
     </div>
   </div>
 </div>
