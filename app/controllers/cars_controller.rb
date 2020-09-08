@@ -63,7 +63,8 @@ class CarsController < ApplicationController
       :brand, :model, :description,
       :year, :license_plate, :seats,
       :color, :transmission, :energy_source,
-      :price_per_hour, photos: [], :location
+      :price_per_hour, :location,
+      photos: []
     )
   end
 end
