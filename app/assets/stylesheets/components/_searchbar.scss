@@ -1,0 +1,30 @@
+.search-form {
+
+}
+
+.search-btn {
+  color: #fff;
+  border-left: none;
+  border: 2px solid #090909;
+  background-color: #090909;
+  border-radius: 0px 50px 50px 0px;
+  font-weight: 900;
+}
+
+.search-btn:hover {
+  transition: 0.2s ease;
+  background-color: #f9f9f9;
+  color: #090909;
+  border: 2px solid #f9f9f9;
+}
+
+.search-bar {
+  border: 2px solid #090909;
+  width: 400px;
+  border-radius: 50px 0px 0px 50px;
+  background-color: #f9f9f9;
+}
+
+.search-bar, .search-btn {
+  padding: 10px 40px;
+}
