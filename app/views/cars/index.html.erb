@@ -1,21 +1,26 @@
-<p>Cars available: <%= @cars.length %></p>
-<h1>Cars</h1>
-<button class="btn btn-primary">Button</button><button class="btn btn-primary">Button</button><button class="btn btn-primary">Button</button>
-<div class="container">
-  <div class="card" style="width: 18rem;">
-    <% @cars.each do |car| %>
-    <div class="row">
-      <div class="col-sm">
-        <!-- for when we implement cloudinary -->
-        <%#= cl_image_tag @car.photo.key, class: "card-img-top" %>
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
-          <p class="card-text"><%= car.price_per_hour %>€/hour</p>
-          <%= link_to 'More details', car_path(car) %>
-        </div>
+<div class="container my-5">
+  <div class="row">
+    <div class="col">
+      <p>Cars available: <%= @cars.length %></p>
+      <h1>Cars</h1>
+      <button type="button" class="btn btn-outline-light">Light</button>
+      <button type="button" class="btn btn-outline-light">Light</button>
+      <button type="button" class="btn btn-outline-light">Light</button>
+    </div>
+  </div>
+</div>
+
+<div class="container d-flex">
+  <% @cars.each do |car| %>
+    <div class="card mx-3 rounded" style="width: 18rem;">
+      <!-- for when we implement cloudinary -->
+      <%= cl_image_tag @car.photo.key, class: "card-img-top" %>
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
+        <p class="card-text"><%= car.price_per_hour %>€/hour</p>
+        <%= link_to 'More details', car_path(car) %>
       </div>
     </div>
-    <% end %>
-  </div>
+  <% end %>
 </div>
