@@ -1,6 +1,11 @@
 class CarsController < ApplicationController
   def index
-    @cars = Car.all
+    if params[:query].present?
+      @query = params[:query]
+      @cars = Car.where("location LIKE '%#{params[:query]}%' ")
+    else
+      @cars = Car.all
+    end
   end
 
   def new
