@@ -1,6 +1,6 @@
 class CarsController < ApplicationController
   
- before_action :set_car, only: [:show]
+ before_action :set_car, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:query].present?
@@ -12,16 +12,19 @@ class CarsController < ApplicationController
   end
   
   def show
+    authorize @car
   end
 
   def new
     @car = Car.new
+    authorize @car
   end
 
 
   def create
     @car = Car.new(car_params)
     @car.user_id = current_user.id
+    authorize @car
 
     if @car.save
       redirect_to @car
@@ -31,6 +34,7 @@ class CarsController < ApplicationController
   end
 
   def edit
+    authorize @car
   end
 
   def update
