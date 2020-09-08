@@ -9,6 +9,6 @@
   <%= f.input :transmission %>
   <%= f.input :energy_source %>
   <%= f.input :price_per_hour %>
-  <%= f.input :photo, as: :file %>
+  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
   <%= f.submit "Submit the car", class: "btn btn-primary" %>
 <% end %>

@@ -1,16 +1,16 @@
 class CarsController < ApplicationController
-  
+
  before_action :set_car, only: [:show]
 
   def index
     if params[:query].present?
       @query = params[:query]
-      @cars = Car.where("location LIKE '%#{params[:query]}%' ")
+      @cars = Car.where("brand LIKE '%#{params[:query]}%' ")
     else
       @cars = Car.all
     end
   end
-  
+
   def show
   end
 
@@ -57,7 +57,7 @@ class CarsController < ApplicationController
       :brand, :model, :description,
       :year, :license_plate, :seats,
       :color, :transmission, :energy_source,
-      :price_per_hour, :photo
+      :price_per_hour, photos: []
     )
   end
 end

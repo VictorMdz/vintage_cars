@@ -11,11 +11,26 @@
 </div>
 
 <div class="container d-flex">
-  <% @cars.each do |car| %>
+  <% @cars.each_with_index do |car, index| %>
     <div class="card mx-3 rounded" style="width: 18rem;">
       <!-- for when we implement cloudinary -->
-      <%= cl_image_tag @car.photo.key, class: "card-img-top" %>
-      <img class="card-img-top" src="..." alt="Card image cap">
+      <div id="carouselExampleIndicators-<%= index %>" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <% car.photos.each_with_index do |photo, index| %>
+            <div class="carousel-item <%= 'active' if index == 0 %>">
+              <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill, class: 'card-img-top'%>
+            </div>
+          <% end %>
+         </div>
+         <a class="carousel-control-prev" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+      </div>
       <div class="card-body">
         <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
         <p class="card-text"><%= car.price_per_hour %>€/hour</p>
@@ -24,3 +39,5 @@
     </div>
   <% end %>
 </div>
+
+
