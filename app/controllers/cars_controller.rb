@@ -1,5 +1,5 @@
 class CarsController < ApplicationController
-  
+
  before_action :set_car, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -63,7 +63,7 @@ class CarsController < ApplicationController
       :brand, :model, :description,
       :year, :license_plate, :seats,
       :color, :transmission, :energy_source,
-      :price_per_hour, photos: []
+      :price_per_hour, photos: [], :location
     )
   end
 end
