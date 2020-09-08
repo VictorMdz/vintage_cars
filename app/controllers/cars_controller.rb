@@ -20,6 +20,17 @@ class CarsController < ApplicationController
     redirect_to car_path(@car)
   end
 
+  def edit
+  end
+
+  def update
+    if @car.update(car_params)
+      redirect_to @car
+    else
+      render :edit
+    end
+  end
+
   private
 
   def car_params
