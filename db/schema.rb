@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_104650) do
+
+ActiveRecord::Schema.define(version: 2020_09_08_150729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +37,19 @@ ActiveRecord::Schema.define(version: 2020_09_08_104650) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "starting_date"
+    t.datetime "ending_date"
+    t.integer "total_price"
+    t.integer "status", default: 0
+    t.bigint "user_id", null: false
+    t.bigint "car_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["car_id"], name: "index_bookings_on_car_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
   create_table "cars", force: :cascade do |t|
     t.string "brand"
     t.string "model"
@@ -47,7 +61,6 @@ ActiveRecord::Schema.define(version: 2020_09_08_104650) do
     t.string "transmission"
     t.string "energy_source"
     t.integer "price_per_hour"
-    t.string "photo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
@@ -71,5 +84,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_104650) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookings", "cars"
+  add_foreign_key "bookings", "users"
   add_foreign_key "cars", "users"
 end
