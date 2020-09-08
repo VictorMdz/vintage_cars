@@ -1,12 +1,21 @@
-<h1>Car#index</h1>
-<p>Find me in app/views/car/index.html.erb</p>
-
-
-
-<ul>
+<p>Cars available: <%= @cars.length %></p>
+<h1>Cars</h1>
+<button class="btn btn-primary">Button</button><button class="btn btn-primary">Button</button><button class="btn btn-primary">Button</button>
+<div class="container">
+  <div class="card" style="width: 18rem;">
     <% @cars.each do |car| %>
-  <li>
-    <%= car.brand %> : <%= car.model %>
-  </li>
+    <div class="row">
+      <div class="col-sm">
+        <!-- for when we implement cloudinary -->
+        <%#= cl_image_tag @car.photo.key, class: "card-img-top" %>
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
+          <p class="card-text"><%= car.price_per_hour %>€/hour</p>
+          <%= link_to 'More details', car_path(car) %>
+        </div>
+      </div>
+    </div>
     <% end %>
-</ul>
+  </div>
+</div>
