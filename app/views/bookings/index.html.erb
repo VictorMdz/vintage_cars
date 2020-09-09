@@ -1,22 +1,26 @@
 <div class="container mt-5">
   <h4 class="mb-4">Your Bookings</h4>
   <div class="cards">
-    <% @bookings.each do |booking| %>
-      <div class="card mr-3 card-rounded" style="width: 15rem;">
-        <div class="card-body">
-          <h5 class="card-title"><%= booking.car.brand %> | <%= booking.car.model %></h5>
-          <p class="card-text">Duration of booking: <%= booking.duration %> hours</p>
-          <p class="card-text">Total price: <%= booking.final_price_euros %>€</p>
-          <% if booking.status == 'pending' %>
-            <p class="card-text list-group-item-warning py-2 text-center rounded"><%= booking.status.capitalize %></p>
-          <% elsif booking.status == 'accepted' %>
-            <p class="card-text list-group-item-success py-2 text-center rounded"><%= booking.status.capitalize %></p>
-          <% else %>
-            <p class="card-text list-group-item-danger py-2 text-center rounded"><%= booking.status.capitalize %></p>
-          <% end %>
-          <%= link_to 'More details', booking_path(booking) %>
+    <% if @bookings.length == 0 %>
+      <h5>You have no bookings yet!</h5>
+    <% else %>
+      <% @bookings.each do |booking| %>
+        <div class="card mr-3 card-rounded" style="width: 15rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= booking.car.brand %> | <%= booking.car.model %></h5>
+            <p class="card-text">Duration of booking: <%= booking.duration %> hours</p>
+            <p class="card-text">Total price: <%= booking.final_price_euros %>€</p>
+            <% if booking.status == 'pending' %>
+              <p class="card-text list-group-item-warning py-2 text-center rounded"><%= booking.status.capitalize %></p>
+            <% elsif booking.status == 'accepted' %>
+              <p class="card-text list-group-item-success py-2 text-center rounded"><%= booking.status.capitalize %></p>
+            <% else %>
+              <p class="card-text list-group-item-danger py-2 text-center rounded"><%= booking.status.capitalize %></p>
+            <% end %>
+            <%= link_to 'More details', booking_path(booking) %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
