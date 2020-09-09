@@ -2,8 +2,12 @@
   <div class="container">
     <a class="navbar-brand" href="/"><strong>Vintage cars</strong></a>
     <div>
-      <a href="/users/sign_in" class="btn btn-outline-dark mr-2">Sign in</a>
-      <span>🚗 </span><a href="/cars/new" class="text-muted ">Add a car </a>
+    <%if !user_signed_in?%>
+      <a href="/users/sign_in" class="btn btn-outline-dark rounded mr-2">Sign in</a>
+    <%else %>
+      <%=link_to "My Cars", user_cars_path(current_user), class: "btn btn-outline-dark "%>
+    <%end%>
+      <span>🚗 </span><a href="/cars/new" class="text-muted">Add a car </a>
     </div>
   </div>
 </nav>
