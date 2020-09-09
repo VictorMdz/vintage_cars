@@ -11,7 +11,7 @@ class CarsController < ApplicationController
 
     if params[:query].present?
       @query = params[:query]
-      @cars = @cars.where("location LIKE ?", @query.downcase )
+      @cars = @cars.where("location ILIKE ?", @query )
     end
   end
 
