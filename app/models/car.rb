@@ -9,7 +9,6 @@ class Car < ApplicationRecord
   validates :color, presence: true
   validates :location, presence: true
   validates :price_per_hour, presence: true
-  validates :photos, presence: true
 
 
   def price_in_euros
