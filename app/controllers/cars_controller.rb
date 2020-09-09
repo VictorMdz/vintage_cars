@@ -5,7 +5,7 @@ class CarsController < ApplicationController
   def index
     if params[:query].present?
       @query = params[:query]
-      @cars = policy_scope(Car).where("location LIKE ?", @query )
+      @cars = policy_scope(Car).where("location LIKE ?", @query.downcase )
     else
       @cars = policy_scope(Car)
     end
@@ -20,9 +20,9 @@ class CarsController < ApplicationController
     authorize @car
   end
 
-
   def create
     @car = Car.new(car_params)
+    @car.location = @car.location.downcase
     @car.user_id = current_user.id
     authorize @car
 
