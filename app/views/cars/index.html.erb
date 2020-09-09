@@ -1,43 +1,52 @@
-<div class="container my-5">
-  <div class="row">
-    <div class="col">
-      <p>Cars available: <%= @cars.length %></p>
-      <h1>Cars</h1>
-      <button type="button" class="btn btn-outline-light">Light</button>
-      <button type="button" class="btn btn-outline-light">Light</button>
-      <button type="button" class="btn btn-outline-light">Light</button>
-    </div>
+<div class="content">
+  <div class="container">
+      <div class="row pt-4">
+        <div class="col mb-2">
+          <p class= "mb-0">Cars available: <%= @cars.length %></p>
+          <h1>Cars</h1>
+            <button type="button" class="btn btn-outline-dark rounded-pill">Light</button>
+            <button type="button" class="btn btn-outline-dark rounded-pill">Light</button>
+            <button type="button" class="btn btn-outline-dark rounded-pill">Light</button>
+        </div>
+      </div>
   </div>
-</div>
 
-<div class="container d-flex vh-100">
-  <% @cars.each_with_index do |car, index| %>
-    <div class="card mx-3 rounded" style="width: 18rem;">
-      <!-- for when we implement cloudinary -->
-      <div id="carouselExampleIndicators-<%= index %>" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <% car.photos.each_with_index do |photo, index| %>
-            <div class="carousel-item <%= 'active' if index == 0 %>">
-              <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill, class: 'card-img-top'%>
+
+  <div class="container d-flex">
+      <div class="cards">
+        <% @cars.each_with_index do |car, index| %>
+          <div class="card mr-3 card-rounded" style="width: 15rem;">
+            <!-- for when we implement cloudinary -->
+            <div id="carouselExampleIndicators-<%= index %>" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <% car.photos.each_with_index do |photo, index| %>
+                  <div class="carousel-item <%= 'active' if index == 0 %>">
+                    <%= cl_image_tag photo.key, height: 200, width: 300, crop: :fill, class: 'card-img-top img-rounded'%>
+                  </div>
+                <% end %>
+               </div>
+               <a class="carousel-control-prev" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+
             </div>
-          <% end %>
-         </div>
-         <a class="carousel-control-prev" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+            <div class="card-body">
+              <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
+              <p class="card-text"><%= car.price_per_hour %>€/hour</p>
+              <%= link_to 'More details', car_path(car) %>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <div class="card-body">
-        <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
-        <p class="card-text"><%= car.price_per_hour %>€/hour</p>
-        <%= link_to 'More details', car_path(car) %>
+      <div>
+        <img id="map" src='https://raw.githubusercontent.com/lewagon/layouts-demo/gh-pages/images/mapbox.png' class="w-100">
       </div>
-    </div>
-  <% end %>
+  </div>
 </div>
 
 
