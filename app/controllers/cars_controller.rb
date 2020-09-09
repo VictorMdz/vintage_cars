@@ -2,7 +2,7 @@ class CarsController < ApplicationController
 
 skip_before_action :authenticate_user!, only: :index
 before_action :set_car, only: [:show, :edit, :update, :destroy]
-
+  
   def index
     @cars = policy_scope(Car)
 
@@ -17,6 +17,7 @@ before_action :set_car, only: [:show, :edit, :update, :destroy]
   end
 
   def show
+    @booking = Booking.new
     authorize @car
   end
 
