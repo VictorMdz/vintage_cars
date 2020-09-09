@@ -41,7 +41,7 @@
     </div>
     <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
       <div>
-        <h3><%= @car.price_in_euros%>€ <span class="price-hour">/hour</span></h3>
+        <h3><%= @car.price_per_hour%>€ <span class="price-hour">/hour</span></h3>
       </div>
       <div class="text-center">
         <!-- <a href="#" class="btn-book text-center">Book now!</a> -->
@@ -54,6 +54,12 @@
     <div class="col-7 my-5 mr-5">
       <h4 class="mb-3">About the car:</h4>
       <p><%= @car.description %></p>
+    </div>
+    <div class="container">
+      <%= link_to car_path(@car), method: :delete, data: { confirm: "Are you sure?" } do %>
+        <button type="button" class="btn btn-danger rounded-pill mr-3">Delete</button>
+      <%= link_to "Edit", car_path(@car), method: :edit, class: "btn btn-light rounded-pill"%>
+      <% end %>
     </div>
   </div>
 </div>
