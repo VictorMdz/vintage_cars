@@ -44,7 +44,8 @@
         <h3><%= @car.price_in_euros%>€ <span class="price-hour">/hour</span></h3>
       </div>
       <div class="text-center">
-        <a href="#" class="btn-book text-center">Book now!</a>
+        <!-- <a href="#" class="btn-book text-center">Book now!</a> -->
+        <%= link_to "Book now!", new_car_booking_path(@car.id), class: 'btn-book text-center' %>
       </div>
       <div>
         <p class="text-center">You won't be charged yet</p>
