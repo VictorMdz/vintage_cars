@@ -3,11 +3,15 @@ class CarsController < ApplicationController
  before_action :set_car, only: [:show, :edit, :update, :destroy]
 
   def index
+    @cars = policy_scope(Car)
+
+    if params[:user_id].present?
+      @cars = @cars.where(user_id: params[:user_id])
+    end
+
     if params[:query].present?
       @query = params[:query]
-      @cars = policy_scope(Car).where("location LIKE ?", @query )
-    else
-      @cars = policy_scope(Car)
+      @cars = @cars.where("location ILIKE ?", @query )
     end
   end
 
@@ -20,9 +24,9 @@ class CarsController < ApplicationController
     authorize @car
   end
 
-
   def create
     @car = Car.new(car_params)
+    @car.location = @car.location.downcase
     @car.user_id = current_user.id
     authorize @car
 
