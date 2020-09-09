@@ -1,0 +1,32 @@
+.carousel-photo-container {
+  border-radius: 15px;
+}
+
+
+.card-rent {
+  border: 1px solid #e2e2e2;
+  border-radius: 15px;
+}
+
+.price-hour {
+  font-size: 18px;
+}
+
+.btn-book {
+  display: inline-block;
+  background-color: #090909;
+  border: 2px solid #090909;
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 15px;
+  text-decoration: none;
+  margin-bottom: 15px;
+}
+
+.btn-book:hover {
+  text-decoration: none;
+  background-color: #fff;
+  color: #090909;
+  border: 2px solid #090909;
+}
+
