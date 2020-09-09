@@ -1,5 +1,7 @@
-<ul>
-  <li>You booked the car for: <%= @booking.duration %> hours</li>
-  <li>Final price: €<%= @booking.final_price_euros %></li>
-  <li>Status: <%= @booking.status %></li>
+<ul class="list-group m-5">
+  <li class="list-group-item">You booked the car for: <strong><%= @booking.duration %></strong>  hours</li>
+  <li class="list-group-item">Final price: <strong> €<%= @booking.final_price_euros %></strong> </li>
+  <li class="list-group-item list-group-item-warning"><%= @booking.status.capitalize %></li>
 </ul>
+
+<%= link_to "Back to all cars", cars_path, class: "m-5" %>

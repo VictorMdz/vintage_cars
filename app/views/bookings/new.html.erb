@@ -1,5 +1,7 @@
-<%= simple_form_for [@car, @booking] do |f| %>
-  <%= f.input :starting_date %>
-  <%= f.input :ending_date %>
-  <%= f.submit "Book now", class: "btn btn-primary" %>
-<% end %>
+<div class="m-5">
+  <%= simple_form_for [@car, @booking] do |f| %>
+    <%= f.input :starting_date %>
+    <%= f.input :ending_date %>
+    <%= f.submit "Book now", class: "btn btn-primary" %>
+  <% end %>
+</div>
