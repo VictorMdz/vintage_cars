@@ -2,8 +2,10 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show]
 
   def index
-    @bookings = Booking.all
+    # @bookings = Booking.all
     @bookings = policy_scope(Booking)
+
+    @bookings = @bookings.where(user_id: current_user.id)
   end
 
   def show

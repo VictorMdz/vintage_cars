@@ -4,7 +4,7 @@ class Booking < ApplicationRecord
   enum status: [:pending, :accepted, :declined]
 
   def final_price_cents
-    total_price = car.price_per_hour * duration
+    total_price = car.price_in_cents * duration
   end
 
   def final_price_euros
