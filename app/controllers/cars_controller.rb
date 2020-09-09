@@ -1,7 +1,4 @@
 class CarsController < ApplicationController
-
-
-
  before_action :set_car, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -18,6 +15,7 @@ class CarsController < ApplicationController
   end
 
   def show
+    @booking = Booking.new
     authorize @car
   end
 
