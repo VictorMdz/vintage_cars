@@ -1,1 +1,19 @@
+.main-container {
+  display: flex;
+}
+.results {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+  padding-right: 16px;
+  padding-left: 16px;
+}
 
+.results-mycars {
+  width: 50%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
