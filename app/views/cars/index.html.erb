@@ -25,24 +25,30 @@
                   <div class="carousel-inner">
                     <% car.photos.each_with_index do |photo, index| %>
                       <div class="carousel-item <%= 'active' if index == 0 %>">
-                        <%= cl_image_tag photo.key, class: 'card-img-top img-rounded'%>
+                        <%= link_to car_path(car) do %>
+                          <%= cl_image_tag photo.key, :quality=> 60, :height=>200, class: 'card-img-top img-rounded' %>
+                        <% end %>
                       </div>
                     <% end %>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
-
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators-<%= index %>" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
                 </div>
-                <div class="card-body">
-                  <h5 class="card-title"><%= car.brand %> | <%= car.model %></h5>
-                  <p class="card-text"><%= car.price_per_hour %>€/hour</p>
-                  <%= link_to 'More details', car_path(car) %>
+                <div class="card-body d-flex flex-column">
+                  <div class="card-details">
+                    <h5 class="card-title font-weight-bold"><%= link_to "#{car.brand} | #{car.model}", car_path(car) %></h5>
+                    <p class="card-text mb-3"><%= car.price_per_hour %>€/hour</p>
+                  </div>
+                  <div class="inline-block d-flex align-items-center mt-auto">
+                    <i class="fas fa-user-circle fa-2x mr-2"></i>
+                    <p class="text-muted m-0"><%= car.user_name %></p>
+                  </div>
                 </div>
               </div>
             <% end %>
