@@ -2,12 +2,33 @@
   <ul class="list-group m-5">
     <li class="list-group-item">You booked the car for: <strong><%= @booking.duration %></strong>  hours</li>
     <li class="list-group-item">Final price: <strong> €<%= @booking.final_price_euros %></strong> </li>
-    <% if @booking.status == 'pending' %>
-      <li class="card-text list-group-item list-group-item-warning py-2 text-center rounded"><%= @booking.status.capitalize %></li>
-    <% elsif @booking.status == 'accepted' %>
-      <li class="card-text list-group-item list-group-item-success py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+    <% if params[:user_id].present? %>
+      <% if @booking.status == 'accepted' %>
+        <li class="card-text list-group-item-success py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+      <% elsif @booking.status == 'declined' %>
+        <li class="card-text list-group-item-danger py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+      <% else %>
+        <div class="text-right d-flex justify-content-center m-0 ">
+          <div class="mr-1 p-0 mt-0">
+            <%= simple_form_for @booking, method: :patch do |f| %>
+              <%= f.input :status, :as => :hidden, :input_html => { :value => :accepted } %>
+              <%= f.submit "Accept", class: "btn btn-outline-success rounded-pill mt-0" %>
+            <% end %>
+          </div>
+          <%= simple_form_for @booking, method: :patch do |f| %>
+            <%= f.input :status, :as => :hidden, :input_html => { :value => :declined } %>
+            <%= f.submit "Decline", class: "btn btn-outline-danger rounded-pill mt-0" %>
+          <% end %>
+        </div>
+      <% end %>
     <% else %>
-      <li class="card-text list-group-item list-group-item-danger py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+      <% if @booking.status == 'pending' %>
+        <li class="card-text list-group-item list-group-item-warning py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+      <% elsif @booking.status == 'accepted' %>
+        <li class="card-text list-group-item list-group-item-success py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+      <% else %>
+        <li class="card-text list-group-item list-group-item-danger py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+      <% end %>
     <% end %>
   </ul>
 </div>

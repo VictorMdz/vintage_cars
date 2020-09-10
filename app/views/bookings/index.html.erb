@@ -1,30 +1,110 @@
 <div class="container mt-5">
-  <h4 class="mb-4">Your Bookings</h4>
-  <div class="cards">
-    <% if @bookings.length == 0 %>
-      <h5>You have no bookings yet!</h5>
-    <% else %>
-      <% @bookings.each do |booking| %>
-        <div class="card mr-3 card-rounded" style="width: 15rem;">
-          <div class="card-body">
-            <h5 class="card-title"><%= booking.car.brand %> | <%= booking.car.model %></h5>
-            <p class="card-text">Duration of booking: <%= booking.duration %> hours</p>
-            <p class="card-text">Total price: <%= booking.final_price_euros %>€</p>
-            <div class="inline-block d-flex align-items-center mt-auto mb-2">
-                <i class="fas fa-user-circle fa-2x mr-2"></i>
-                <p class="text-muted m-0"><%= booking.user_name %></p>
-            </div>
-            <% if booking.status == 'pending' %>
-              <p class="card-text list-group-item-warning py-2 text-center rounded"><%= booking.status.capitalize %></p>
-            <% elsif booking.status == 'accepted' %>
-              <p class="card-text list-group-item-success py-2 text-center rounded"><%= booking.status.capitalize %></p>
-            <% else %>
-              <p class="card-text list-group-item-danger py-2 text-center rounded"><%= booking.status.capitalize %></p>
+  <h1 class="mb-3"><%= params[:user_id].present? ? "My requested bookings" : "My bookings" %></h1>
+  <p class= "mb-3"> Bookings: <%= @bookings.length %></p>
+    <div class="d-flex justify-content-between">
+      <div class="container-pending">
+        <h4 class="mb-4">Pendings</h4>
+        <% if @pending_bookings.length == 0 %>
+          <h6>You don't have booking pending!</h6>
+        <% else %>
+          <div class="cards align-items-left">
+            <% @pending_bookings.each do |booking| %>
+              <div class="card mr-3 card-rounded" style="width: 15rem;">
+                <div class="card-body">
+                  <h5 class="card-title mb-0"><%= booking.car.brand %> | <%= booking.car.model %></h5>
+                  <p class="card-text"> <small><i> Made on: <%= booking.created_at.strftime("%d-%m-%Y") %> </i></small></p>
+                  <p class="card-text">Duration: <%= booking.duration %> hours</p>
+                  <p class="card-text">Total price: <%= booking.final_price_euros %>€</p>
+                  <div class="inline-block d-flex align-items-center mt-auto mb-2">
+                      <i class="fas fa-user-circle fa-2x mr-2"></i>
+                      <p class="text-muted m-0"><%= booking.user_name %></p>
+                  </div>
+                  <% if params[:user_id].present? %>
+                    <% if booking.status == 'accepted' %>
+                      <p class="card-text list-group-item-success py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                    <% elsif booking.status == 'declined' %>
+                      <p class="card-text list-group-item-danger py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                    <% else %>
+                      <div class="text-right d-flex justify-content-center m-0 ">
+                        <div class="mr-1 p-0 mt-0">
+                          <%= simple_form_for booking, method: :patch do |f| %>
+                            <%= f.input :status, :as => :hidden, :input_html => { :value => :accepted } %>
+                            <%= f.submit "Accept", class: "btn btn-outline-success rounded-pill mt-0" %>
+                          <% end %>
+                        </div>
+                        <%= simple_form_for booking, method: :patch do |f| %>
+                          <%= f.input :status, :as => :hidden, :input_html => { :value => :declined } %>
+                          <%= f.submit "Decline", class: "btn btn-outline-danger rounded-pill mt-0" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <% if booking.status == 'pending' %>
+                      <p class="card-text list-group-item-warning py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                    <% elsif booking.status == 'accepted' %>
+                      <p class="card-text list-group-item-success py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                    <% else %>
+                      <p class="card-text list-group-item-danger py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                    <% end %>
+                  <% end %>
+                  <%= link_to 'More details', booking_path(booking) %>
+                </div>
+              </div>
             <% end %>
-            <%= link_to 'More details', booking_path(booking) %>
           </div>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
+        <% end %>
+      </div>
+      <div class="container-otherbookings">
+        <h4 class="mb-4">Previous</h4>
+        <% if @other_bookings.length == 0 %>
+          <h6>You don't have old bookings!</h6>
+        <% else %>
+          <div class="cards ">
+            <% @other_bookings.each do |booking| %>
+                <div class="card mr-3 card-rounded bg-light" style="width: 15rem;">
+                  <div class="card-body">
+                    <h5 class="card-title mb-0"><%= booking.car.brand %> | <%= booking.car.model %></h5>
+                    <p class="card-text"> <small><i> Made on: <%= booking.created_at.strftime("%d-%m-%Y") %> </i></small></p>
+                    <p class="card-text">Duration: <%= booking.duration %> hours</p>
+                    <p class="card-text">Total price: <%= booking.final_price_euros %>€</p>
+                    <div class="inline-block d-flex align-items-center mt-auto mb-2">
+                        <i class="fas fa-user-circle fa-2x mr-2"></i>
+                        <p class="text-muted m-0"><%= booking.user_name %></p>
+                    </div>
+                    <% if !@your_index %>
+                      <% if booking.status == 'accepted' %>
+                        <p class="card-text list-group-item-success py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                      <% elsif booking.status == 'declined' %>
+                        <p class="card-text list-group-item-danger py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                      <% else %>
+                        <div class="text-right d-flex justify-content-center m-0 ">
+                          <div class="mr-1 p-0 mt-0">
+                            <%= simple_form_for booking, method: :patch do |f| %>
+                              <%= f.input :status, :as => :hidden, :input_html => { :value => :accepted } %>
+                              <%= f.submit "Accept", class: "btn btn-outline-success rounded-pill mt-0" %>
+                            <% end %>
+                          </div>
+                          <%= simple_form_for booking, method: :patch do |f| %>
+                            <%= f.input :status, :as => :hidden, :input_html => { :value => :declined } %>
+                            <%= f.submit "Decline", class: "btn btn-outline-danger rounded-pill mt-0" %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <% if booking.status == 'pending' %>
+                        <p class="card-text list-group-item-warning py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                      <% elsif booking.status == 'accepted' %>
+                        <p class="card-text list-group-item-success py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                      <% else %>
+                        <p class="card-text list-group-item-danger py-2 text-center rounded"><%= booking.status.capitalize %></p>
+                      <% end %>
+                    <% end %>
+                    <%= link_to 'More details', booking_path(booking) %>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 </div>

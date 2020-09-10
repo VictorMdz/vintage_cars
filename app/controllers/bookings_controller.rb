@@ -11,17 +11,8 @@ class BookingsController < ApplicationController
       @bookings = @bookings.where(user_id: current_user.id)
     end
 
-
-    # if !params[:user_id].present?
-    #   @bookings = @bookings.where(user_id: current_user.id)
-    # else
-    #   @bookings = @bookings.where(user_id: current_user.id)
-    #   # @cars =
-    #   # @car_bookings = @car.bookings.where status: "pending"
-    #   # @bookings = @bookings.where(current_user.id == @car.user_id)
-    # end
-
-
+    @pending_bookings = @bookings.where status: "pending"
+    @other_bookings = @bookings.where.not status: "pending"
   end
 
 
@@ -37,9 +28,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-
     @booking = Booking.new(booking_params)
-
     authorize @booking
 
     @booking.user_id = current_user.id
@@ -60,7 +49,6 @@ class BookingsController < ApplicationController
   end
 
   def update
-
     if @booking.update(booking_params)
       redirect_to @booking
     else
