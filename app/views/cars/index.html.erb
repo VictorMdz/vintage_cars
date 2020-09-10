@@ -21,7 +21,7 @@
             <% @cars.each_with_index do |car, index| %>
               <div class="card mr-3 card-rounded" style="width: 15rem;">
                 <!-- for when we implement cloudinary -->
-                <div id="carouselExampleIndicators-<%= index %>" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleIndicators-<%= index %>" class="carousel slide" data-interval="false" data-ride="carousel">
                   <div class="carousel-inner">
                     <% car.photos.each_with_index do |photo, index| %>
                       <div class="carousel-item <%= 'active' if index == 0 %>">
@@ -57,5 +57,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
