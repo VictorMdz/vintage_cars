@@ -39,21 +39,24 @@
         <li><p>Energy Source: <%= @car.energy_source %></p></li>
       </ul>
     </div>
-    <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
-      <div>
-        <h3><%= @car.price_per_hour%>€ <span class="price-hour">/hour</span></h3>
+
+    <% if !policy(@car).update? %>
+      <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
+        <div>
+          <h3><%= @car.price_per_hour%>€ <span class="price-hour">/hour</span></h3>
+        </div>
+        <div>
+          <%= simple_form_for [@car, @booking] do |f| %>
+            <%= f.input :starting_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today, :placeholder => "Choose your date" }%>
+            <%= f.input :ending_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today, :placeholder => Date.today }%>
+            <%= f.submit "Book now!", class: "btn-book text-center" %>
+          <% end %>
+        </div>
+        <div>
+          <p class="text-center">You won't be charged yet</p>
+        </div>
       </div>
-      <div>
-        <%= simple_form_for [@car, @booking] do |f| %>
-          <%= f.input :starting_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today, :placeholder => "Choose your date" }%>
-          <%= f.input :ending_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today, :placeholder => Date.today }%>
-          <%= f.submit "Book now!", class: "btn-book text-center" %>
-        <% end %>
-      </div>
-      <div>
-        <p class="text-center">You won't be charged yet</p>
-      </div>
-    </div>
+    <% end %>
     <div class="col-7 my-5 mr-5">
       <h4 class="mb-3">About the car:</h4>
       <p><%= @car.description %></p>
