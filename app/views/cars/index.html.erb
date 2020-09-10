@@ -4,13 +4,6 @@
         <div class="col mb-2">
           <p class= "mb-0">Cars available: <%= @cars.length %></p>
           <h1 class="mb-3"><%= @your_index ? "Cars" : "My cars" %></h1>
-            <button type="button" class="btn btn-outline-dark rounded-pill">60's</button>
-            <button type="button" class="btn btn-outline-dark rounded-pill">70's</button>
-            <button type="button" class="btn btn-outline-dark rounded-pill">80's</button>
-            <button type="button" class="btn btn-outline-dark rounded-pill">Manual</button>
-            <button type="button" class="btn btn-outline-dark rounded-pill">Sport</button>
-        </div>
-          <h1 class="mb-3">All Cars</h1>
           <div class="pt-2">
             <h6 class="pb-1">Filters</h6>
             <%= form_tag cars_path, method: :get do %>
