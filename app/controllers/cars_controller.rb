@@ -2,10 +2,11 @@ class CarsController < ApplicationController
 
 skip_before_action :authenticate_user!, only: :index
 before_action :set_car, only: [:show, :edit, :update, :destroy]
+before_action :check_display_index, only: [ :index ]
 
   def index
     @cars = policy_scope(Car)
-
+    
     if params[:user_id].present?
       @cars = @cars.where(user_id: params[:user_id])
     end
@@ -78,6 +79,10 @@ before_action :set_car, only: [:show, :edit, :update, :destroy]
 
   def set_car
     @car = Car.find(params[:id])
+  end
+
+  def check_display_index
+    @your_index = !params[:user_id].present? 
   end
 
   def car_params

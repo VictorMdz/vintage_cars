@@ -1,9 +1,5 @@
-<div id="carouselExampleIndicators" class="carousel my-5 slide container" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
+<div id="carouselExampleIndicators" class="carousel my-5 slide container"  data-interval="false" data-ride="carousel">
+  
   <div class="carousel-inner carousel-photo-container">
     <% @car.photos.each_with_index do |photo, index| %>
       <div class="carousel-item <%= 'active' if index == 0 %>">
@@ -28,15 +24,19 @@
 
 <div class= "container my-5">
   <div class="row d-flex">
+   <div class="col-7 my-5 mr-5">
+      <h3 class="mb-3"><strong>About the car:</strong></h3>
+      <p><%= @car.description %></p>
+    </div>
     <div class="col-7 mr-5 py-5 border-top border-bottom">
-      <h4 class="mb-3">Car specs:</h4>
-      <ul>
-        <li><p>Year: <%= @car.year %></p></li>
-        <li><p>Seats: <%= @car.seats %></p></li>
-        <li><p>License Plat: <%= @car.license_plate %></p></li>
-        <li><p>Color: <%= @car.color %></p></li>
-        <li><p>Transmission: <%= @car.transmission %></p></li>
-        <li><p>Energy Source: <%= @car.energy_source %></p></li>
+      <h3 class="mb-3"><strong>Car specs:</strong></h3>
+      <ul style="list-style-type:none">
+        <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
+        <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Seats: </strong><%= @car.seats %></p></li>
+        <li class="d-flex"> <i class="fas fa-car fa-2x m-2"></i><p class="m-2"><strong>License Plat: </strong><%= @car.license_plate %></p></li>
+        <li class="d-flex"> <i class="fas fa-palette fa-2x m-2"></i><p class="m-2 "><strong>Color: </strong><%= @car.color %></p></li>
+        <li class="d-flex"> <i class="fas fa-cog fa-2x m-2"></i><p class="m-2 "><strong>Transmission: </strong><%= @car.transmission %></p></li>
+        <li class="d-flex"> <i class="fas fa-gas-pump fa-2x m-2"></i><p class="m-2 "><strong>Energy Source: </strong><%= @car.energy_source %></p></li>
       </ul>
     </div>
 
@@ -87,24 +87,12 @@
         <% end %>
       <% end %>
     <% end %>
-
-
-
-
-
-
-
+    
     <div class="col-7 my-5 mr-5">
       <h4 class="mb-3">About the car:</h4>
       <p><%= @car.description %></p>
     </div>
-
-
-
-
-
-
-
+    
     <div class="container">
       <% if policy(@car).update? %>
         <%= link_to car_path(@car), method: :delete, data: { confirm: "Are you sure?" } do %>

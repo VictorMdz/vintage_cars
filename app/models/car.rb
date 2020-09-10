@@ -25,4 +25,8 @@ class Car < ApplicationRecord
   def price_in_cents
     price_per_hour * 100
   end
+
+  def user_name
+    user.full_name
+  end
 end
