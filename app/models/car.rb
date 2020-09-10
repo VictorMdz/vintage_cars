@@ -5,14 +5,18 @@ class Car < ApplicationRecord
 
   validates :brand, presence: true
   validates :model, presence: true
-  validates :year, presence: true
-  validates :color, presence: true
   validates :location, presence: true
   validates :price_per_hour, presence: true
 
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?
-  
+
+  include PgSearch::Model
+  pg_search_scope :search_by_brand_model_location,
+    against: [ :brand, :model, :location ],
+    using: {
+      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+    }
 
   def price_in_euros
     price_per_hour / 100

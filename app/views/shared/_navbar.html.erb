@@ -1,14 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-vintagecars sticky-top navbar-expand-lg navbar-light">
   <div class="container">
-    <a class="navbar-brand" href="/"><strong>Vintage cars</strong></a>
-    <div>
-    <%if !user_signed_in?%>
-      <a href="/users/sign_in" class="btn btn-outline-dark mr-2 rounded-pill">Sign in</a>
-    <%else %>
-      <%=link_to "My Cars", user_cars_path(current_user), class: "btn btn-outline-dark rounded-pill "%>
-      <%=link_to "My Bookings", bookings_path, class: "btn btn-outline-dark rounded-pill "%>
-    <%end%>
-      <span>🚗 </span><a href="/cars/new" class="text-muted">Add a car </a>
-    </div>
+    <a class="navbar-brand" href="/"><strong>VintageCars</strong></a>
+      <div class="d-flex flex-row align-items-center">
+        <%if !user_signed_in?%>
+          <a href="/users/sign_in" class="btn btn-outline-dark mr-2 rounded-pill">Sign in</a>
+        <%else %>
+          <div class="mr-5">
+            <span>🚗 </span><a href="/cars/new" class="text-muted">Add a car </a>
+          </div>
+          <div class="btn-group">
+
+            <a type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle fa-2x"></i>
+            </a>
+            <div class="dropdown-menu">
+              <%=link_to "My Cars", user_cars_path(current_user), class: "dropdown-item" %>
+              <%=link_to "My Bookings", bookings_path, class: "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Edit profile</a>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </div>
+        <%end%>
+      </div>
   </div>
 </nav>
