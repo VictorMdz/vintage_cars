@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show]
+  before_action :set_booking, only: [:show, :edit, :update]
 
   def index
     # @bookings = Booking.all
@@ -17,7 +17,7 @@ class BookingsController < ApplicationController
     @car = Car.find(params[:car_id])
     @user = current_user
     @booking = Booking.new
-    authorize @booking
+    # authorize @booking
   end
 
   def create
@@ -39,6 +39,21 @@ class BookingsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @booking
+  end
+
+  def update
+
+    if @booking.update(booking_params)
+      redirect_to @booking
+    else
+      render "cars/show"
+    end
+
+    authorize @booking
+  end
+
   private
 
   def set_booking
@@ -48,7 +63,8 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(
       :starting_date,
-      :ending_date
+      :ending_date,
+      :status
     )
   end
 end
