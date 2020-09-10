@@ -2,7 +2,7 @@ class CarsController < ApplicationController
 
 skip_before_action :authenticate_user!, only: :index
 before_action :set_car, only: [:show, :edit, :update, :destroy]
-  
+
   def index
     @cars = policy_scope(Car)
 
@@ -12,7 +12,7 @@ before_action :set_car, only: [:show, :edit, :update, :destroy]
 
     if params[:query].present?
       @query = params[:query]
-      @cars = @cars.where("location ILIKE ?", @query )
+      @cars = Car.search_by_brand_model_location(@query)
     end
   end
 
