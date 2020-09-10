@@ -18,6 +18,7 @@
               <%=link_to "My Bookings", bookings_path, class: "dropdown-item" %>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Edit profile</a>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </div>
         <%end%>
