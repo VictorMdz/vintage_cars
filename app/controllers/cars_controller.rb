@@ -2,18 +2,49 @@ class CarsController < ApplicationController
 
 skip_before_action :authenticate_user!, only: :index
 before_action :set_car, only: [:show, :edit, :update, :destroy]
+before_action :set_cars, only: :index
 before_action :check_display_index, only: [ :index ]
 
   def index
+    #Index for user's own cars
     @cars = policy_scope(Car)
     
     if params[:user_id].present?
       @cars = @cars.where(user_id: params[:user_id])
     end
 
+    #Index for all cars in website
+    #Index for search query
     if params[:query].present?
       @query = params[:query]
-      @cars = Car.search_by_brand_model_location(@query)
+      @cars = @cars.search_and_filter(@query)
+    end
+    #index for filters
+    if params[:color] != "" && params[:color].present?
+      @cars = @cars.search_and_filter(params[:color])
+    end
+
+    if params[:location] != "" && params[:location].present?
+      @cars = @cars.search_and_filter(params[:location])
+    end
+
+    if params[:brand] != "" && params[:brand].present?
+      @cars = @cars.search_and_filter(params[:brand])
+    end
+
+    if params[:energy_source] != "" && params[:energy_source].present?
+      @cars = @cars.search_and_filter(params[:energy_source])
+    end
+
+    if params[:transmission] != "" && params[:transmission].present?
+      @cars = @cars.search_and_filter(params[:transmission])
+    end
+
+    if params[:price] != "" && params[:price].present?
+      @cars = @cars.by_price(params[:price])
+    end
+    if params[:year] != "" && params[:year].present?
+      @cars = @cars.by_year(@years[params[:year].to_sym].to_a)
     end
 
     @markers = @cars.geocoded.map do |car|
@@ -80,9 +111,38 @@ before_action :check_display_index, only: [ :index ]
   def set_car
     @car = Car.find(params[:id])
   end
+  
+  def set_cars
+    @cars = policy_scope(Car)
+
+    @colors = @cars.map { |car| car.color }
+    @colors.uniq!
+
+    @brands = @cars.map { |car| car.brand }
+    @brands.uniq!
+
+    @locations = @cars.map { |car| car.location }
+    @locations.uniq!
+
+    @prices = @cars.map { |car| car.price_in_euros }
+    @prices.uniq!
+
+    @energies = @cars.map { |car| car.energy_source }
+    @energies.uniq!
+
+    @transmissions = @cars.map { |car| car.transmission }
+    @transmissions.uniq!
+
+    @years = {
+      "50's": 1950..1959,
+      "60's": 1960..1969,
+      "70's": 1970..1979,
+      "80's": 1980..1989
+    }
 
   def check_display_index
     @your_index = !params[:user_id].present? 
+
   end
 
   def car_params
