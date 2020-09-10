@@ -1,9 +1,5 @@
-<div id="carouselExampleIndicators" class="carousel my-5 slide container" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
+<div id="carouselExampleIndicators" class="carousel my-5 slide container"  data-interval="false" data-ride="carousel">
+  
   <div class="carousel-inner carousel-photo-container">
     <% @car.photos.each_with_index do |photo, index| %>
       <div class="carousel-item <%= 'active' if index == 0 %>">
@@ -28,39 +24,81 @@
 
 <div class= "container my-5">
   <div class="row d-flex">
+   <div class="col-7 my-5 mr-5">
+      <h3 class="mb-3"><strong>About the car:</strong></h3>
+      <p><%= @car.description %></p>
+    </div>
     <div class="col-7 mr-5 py-5 border-top border-bottom">
-      <h4 class="mb-3">Car specs:</h4>
-      <ul>
-        <li><p>Year: <%= @car.year %></p></li>
-        <li><p>Seats: <%= @car.seats %></p></li>
-        <li><p>License Plat: <%= @car.license_plate %></p></li>
-        <li><p>Color: <%= @car.color %></p></li>
-        <li><p>Transmission: <%= @car.transmission %></p></li>
-        <li><p>Energy Source: <%= @car.energy_source %></p></li>
+      <h3 class="mb-3"><strong>Car specs:</strong></h3>
+      <ul style="list-style-type:none">
+        <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
+        <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Seats: </strong><%= @car.seats %></p></li>
+        <li class="d-flex"> <i class="fas fa-car fa-2x m-2"></i><p class="m-2"><strong>License Plat: </strong><%= @car.license_plate %></p></li>
+        <li class="d-flex"> <i class="fas fa-palette fa-2x m-2"></i><p class="m-2 "><strong>Color: </strong><%= @car.color %></p></li>
+        <li class="d-flex"> <i class="fas fa-cog fa-2x m-2"></i><p class="m-2 "><strong>Transmission: </strong><%= @car.transmission %></p></li>
+        <li class="d-flex"> <i class="fas fa-gas-pump fa-2x m-2"></i><p class="m-2 "><strong>Energy Source: </strong><%= @car.energy_source %></p></li>
       </ul>
     </div>
-    <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
-      <div>
-        <h3><%= @car.price_per_hour%>€ <span class="price-hour">/hour</span></h3>
+
+    <% if (!policy(@car).update?) %>
+      <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
+        <div>
+          <h3><%= @car.price_per_hour%>€ <span class="price-hour">/hour</span></h3>
+        </div>
+        <div>
+          <%= simple_form_for [@car, @booking] do |f| %>
+            <%= f.input :starting_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today}%>
+            <%= f.input :ending_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today}%>
+            <%= f.submit "Book now!", class: "btn-book text-center" %>
+          <% end %>
+        </div>
+        <div>
+          <p class="text-center">You won't be charged yet</p>
+        </div>
       </div>
-      <div class="text-center">
-        <!-- <a href="#" class="btn-book text-center">Book now!</a> -->
-        <%= link_to "Book now!", new_car_booking_path(@car.id), class: 'btn-book text-center' %>
-      </div>
-      <div>
-        <p class="text-center">You won't be charged yet</p>
-      </div>
-    </div>
+    <% else %>
+      <% if current_user.id == @car.user_id %>
+        <% if @car_bookings.empty? %>
+          <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
+            You don't have any bookings pending!
+          </div>
+        <% else %>
+          <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
+            <% @car_bookings.each_with_index do |booking, index| %>
+              <div class="border-bottom">
+                <h4 class="pt-3 pb-2"> Booking <%= index + 1 %> </h4>
+                <p> <strong> Starting date </strong>: <%= booking.starting_date.to_s.gsub('UTC', '') %> </p>
+                <p> <strong>Ending date </strong>: <%= booking.ending_date.to_s.gsub('UTC', '') %> </p>
+                <div class="text-right pb-4 d-flex justify-content-end">
+                  <div class="mr-1">
+                    <%= simple_form_for booking, method: :patch do |f| %>
+                      <%= f.input :status, :as => :hidden, :input_html => { :value => :accepted } %>
+                      <%= f.submit "Accept", class: "btn btn-outline-success rounded-pill" %>
+                    <% end %>
+                  </div>
+                  <%= simple_form_for booking, method: :patch do |f| %>
+                    <%= f.input :status, :as => :hidden, :input_html => { :value => :declined } %>
+                    <%= f.submit "Decline", class: "btn btn-outline-danger rounded-pill" %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    
     <div class="col-7 my-5 mr-5">
       <h4 class="mb-3">About the car:</h4>
       <p><%= @car.description %></p>
     </div>
+    
     <div class="container">
       <% if policy(@car).update? %>
         <%= link_to car_path(@car), method: :delete, data: { confirm: "Are you sure?" } do %>
-        <button type="button" class="btn btn-danger rounded-pill mr-3">Delete</button>
-        <%= link_to "Edit", edit_car_path(@car), class: "btn btn-light rounded-pill"%>
-      <% end %>
+          <button type="button" class="btn btn-danger rounded-pill mr-3">Delete</button>
+          <%= link_to "Edit", edit_car_path(@car), class: "btn btn-light rounded-pill"%>
+        <% end %>
       <% end %>
     </div>
   </div>

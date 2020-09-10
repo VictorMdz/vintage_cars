@@ -3,9 +3,12 @@ class CarsController < ApplicationController
 skip_before_action :authenticate_user!, only: :index
 before_action :set_car, only: [:show, :edit, :update, :destroy]
 before_action :set_cars, only: :index
+before_action :check_display_index, only: [ :index ]
 
   def index
     #Index for user's own cars
+    @cars = policy_scope(Car)
+    
     if params[:user_id].present?
       @cars = @cars.where(user_id: params[:user_id])
     end
@@ -43,11 +46,27 @@ before_action :set_cars, only: :index
     if params[:year] != "" && params[:year].present?
       @cars = @cars.by_year(@years[params[:year].to_sym].to_a)
     end
+
+    @markers = @cars.geocoded.map do |car|
+      {
+        lat: car.latitude,
+        lng: car.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { car: car }),
+        image_url: helpers.asset_url('logo.jpg')
+      }
+    end
   end
 
   def show
+    # if current_user.id = @bookings.where(user_id: current_user.id)
     @booking = Booking.new
     authorize @car
+
+    @car_bookings = @car.bookings.where status: "pending"
+
+
+
+
   end
 
   def new
@@ -92,7 +111,7 @@ before_action :set_cars, only: :index
   def set_car
     @car = Car.find(params[:id])
   end
-
+  
   def set_cars
     @cars = policy_scope(Car)
 
@@ -120,6 +139,10 @@ before_action :set_cars, only: :index
       "70's": 1970..1979,
       "80's": 1980..1989
     }
+
+  def check_display_index
+    @your_index = !params[:user_id].present? 
+
   end
 
   def car_params
