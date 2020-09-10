@@ -5,10 +5,15 @@ class Car < ApplicationRecord
 
   validates :brand, presence: true
   validates :model, presence: true
-  validates :year, presence: true
-  validates :color, presence: true
   validates :location, presence: true
   validates :price_per_hour, presence: true
+
+  include PgSearch::Model
+  pg_search_scope :search_by_brand_model_location,
+    against: [ :brand, :model, :location ],
+    using: {
+      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+    }
 
 
   def price_in_euros
