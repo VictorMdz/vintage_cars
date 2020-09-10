@@ -8,7 +8,7 @@ before_action :check_display_index, only: [ :index ]
   def index
     #Index for user's own cars
     @cars = policy_scope(Car)
-    
+
     if params[:user_id].present?
       @cars = @cars.where(user_id: params[:user_id])
     end
@@ -111,7 +111,7 @@ before_action :check_display_index, only: [ :index ]
   def set_car
     @car = Car.find(params[:id])
   end
-  
+
   def set_cars
     @cars = policy_scope(Car)
 
@@ -139,9 +139,10 @@ before_action :check_display_index, only: [ :index ]
       "70's": 1970..1979,
       "80's": 1980..1989
     }
+  end
 
   def check_display_index
-    @your_index = !params[:user_id].present? 
+    @your_index = !params[:user_id].present?
 
   end
 
@@ -155,3 +156,4 @@ before_action :check_display_index, only: [ :index ]
     )
   end
 end
+
