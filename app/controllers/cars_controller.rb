@@ -14,6 +14,15 @@ before_action :set_car, only: [:show, :edit, :update, :destroy]
       @query = params[:query]
       @cars = Car.search_by_brand_model_location(@query)
     end
+
+    @markers = @cars.geocoded.map do |car|
+      {
+        lat: car.latitude,
+        lng: car.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { car: car }),
+        image_url: helpers.asset_url('logo.jpg')
+      }
+    end
   end
 
   def show
