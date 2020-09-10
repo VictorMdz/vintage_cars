@@ -8,6 +8,7 @@ class BookingsController < ApplicationController
     @bookings = @bookings.where(user_id: current_user.id)
   end
 
+
   def show
     authorize @booking
   end
@@ -20,6 +21,7 @@ class BookingsController < ApplicationController
   end
 
   def create
+
     @booking = Booking.new(booking_params)
 
     authorize @booking
@@ -33,7 +35,7 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to booking_path(@booking)
     else
-      render :new
+      render "cars/show"
     end
   end
 

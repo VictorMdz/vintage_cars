@@ -43,9 +43,12 @@
       <div>
         <h3><%= @car.price_per_hour%>€ <span class="price-hour">/hour</span></h3>
       </div>
-      <div class="text-center">
-        <!-- <a href="#" class="btn-book text-center">Book now!</a> -->
-        <%= link_to "Book now!", new_car_booking_path(@car.id), class: 'btn-book text-center' %>
+      <div>
+        <%= simple_form_for [@car, @booking] do |f| %>
+          <%= f.input :starting_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today, :placeholder => "Choose your date" }%>
+          <%= f.input :ending_date, as: :string, class: "form-control", :input_html => { :type => "datetime-local", :value => Date.today, :placeholder => Date.today }%>
+          <%= f.submit "Book now!", class: "btn-book text-center" %>
+        <% end %>
       </div>
       <div>
         <p class="text-center">You won't be charged yet</p>
