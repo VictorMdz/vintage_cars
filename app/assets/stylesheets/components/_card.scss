@@ -1,9 +1,14 @@
+.inline-block {
+}
+
+
 .cards {
   flex-grow: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 16px;
 }
+
 
 @media(max-width: 992px) {
   .cards {
@@ -15,10 +20,6 @@
   .cards {
     grid-template-columns: 1fr 1fr 1fr;
   }
-}
-
-.image-carousel {
-  object-fit: cover;
 }
 
 .card-rounded {
