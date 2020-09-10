@@ -16,10 +16,10 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12 <%= "col-md-6" if @your_index  %>">
           <div class="cards">
             <% @cars.each_with_index do |car, index| %>
-              <div class="card mr-3 card-rounded" style="width: 15rem;">
+              <div class="card mr-3 card-rounded">
                 <!-- for when we implement cloudinary -->
                 <div id="carouselExampleIndicators-<%= index %>" class="carousel slide" data-interval="false" data-ride="carousel">
                   <div class="carousel-inner">
@@ -54,14 +54,7 @@
             <% end %>
           </div>
       </div>
-      <div class="col-12 col-md-6" data-controller="map">
-        <div id="map"
-          data-target="map.map"
-          style="width: 100%; height: 600px;"
-          data-markers="<%= @markers.to_json %>"
-          data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
-        </div>
-      </div>
+      <%= render 'shared/map' if @your_index %>
     </div>
 
   </div>
