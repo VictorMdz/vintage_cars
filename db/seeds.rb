@@ -200,7 +200,7 @@ car_10 = Car.new(
   transmission: "Automatic",
   energy_source: "Gasoline",
   price_per_hour: "59",
-  location: "Tokio"
+  location: "Prague"
 )
 car_10.save!
 
