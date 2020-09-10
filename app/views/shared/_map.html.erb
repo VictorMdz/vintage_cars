@@ -1,8 +1,9 @@
-   <div class="col-12 col-md-6" data-controller="map">
+
       <div id="map"
+        data-controller="map"
         data-target="map.map"
-        style="width: 100%; height: 600px;"
+        style="width: 50%; height: 100vh; position: sticky; top: 0;"
         data-markers="<%= @markers.to_json %>"
         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
       </div>
-    </div>
+
