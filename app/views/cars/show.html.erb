@@ -1,5 +1,5 @@
 <div id="carouselExampleIndicators" class="carousel my-5 slide container"  data-interval="false" data-ride="carousel">
-  
+
   <div class="carousel-inner carousel-photo-container">
     <% @car.photos.each_with_index do |photo, index| %>
       <div class="carousel-item <%= 'active' if index == 0 %>">
@@ -28,17 +28,7 @@
       <h3 class="mb-3"><strong>About the car:</strong></h3>
       <p><%= @car.description %></p>
     </div>
-    <div class="col-7 mr-5 py-5 border-top border-bottom">
-      <h3 class="mb-3"><strong>Car specs:</strong></h3>
-      <ul style="list-style-type:none">
-        <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
-        <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Seats: </strong><%= @car.seats %></p></li>
-        <li class="d-flex"> <i class="fas fa-car fa-2x m-2"></i><p class="m-2"><strong>License Plat: </strong><%= @car.license_plate %></p></li>
-        <li class="d-flex"> <i class="fas fa-palette fa-2x m-2"></i><p class="m-2 "><strong>Color: </strong><%= @car.color %></p></li>
-        <li class="d-flex"> <i class="fas fa-cog fa-2x m-2"></i><p class="m-2 "><strong>Transmission: </strong><%= @car.transmission %></p></li>
-        <li class="d-flex"> <i class="fas fa-gas-pump fa-2x m-2"></i><p class="m-2 "><strong>Energy Source: </strong><%= @car.energy_source %></p></li>
-      </ul>
-    </div>
+
 
     <% if (!policy(@car).update?) %>
       <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
@@ -69,6 +59,10 @@
                 <h4 class="pt-3 pb-2"> Booking <%= index + 1 %> </h4>
                 <p> <strong> Starting date </strong>: <%= booking.starting_date.to_s.gsub('UTC', '') %> </p>
                 <p> <strong>Ending date </strong>: <%= booking.ending_date.to_s.gsub('UTC', '') %> </p>
+                <div class="inline-block d-flex align-items-center mt-auto">
+                    <i class="fas fa-user-circle fa-2x mr-2"></i>
+                    <p class="text-muted m-0"><%= booking.user_name %></p>
+                </div>
                 <div class="text-right pb-4 d-flex justify-content-end">
                   <div class="mr-1">
                     <%= simple_form_for booking, method: :patch do |f| %>
@@ -87,12 +81,19 @@
         <% end %>
       <% end %>
     <% end %>
-    
-    <div class="col-7 my-5 mr-5">
-      <h4 class="mb-3">About the car:</h4>
-      <p><%= @car.description %></p>
+
+    <div class="col-7 mr-5 py-5 border-top border-bottom">
+      <h3 class="mb-3"><strong>Car specs:</strong></h3>
+      <ul style="list-style-type:none">
+        <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
+        <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Seats: </strong><%= @car.seats %></p></li>
+        <li class="d-flex"> <i class="fas fa-car fa-2x m-2"></i><p class="m-2"><strong>License Plat: </strong><%= @car.license_plate %></p></li>
+        <li class="d-flex"> <i class="fas fa-palette fa-2x m-2"></i><p class="m-2 "><strong>Color: </strong><%= @car.color %></p></li>
+        <li class="d-flex"> <i class="fas fa-cog fa-2x m-2"></i><p class="m-2 "><strong>Transmission: </strong><%= @car.transmission %></p></li>
+        <li class="d-flex"> <i class="fas fa-gas-pump fa-2x m-2"></i><p class="m-2 "><strong>Energy Source: </strong><%= @car.energy_source %></p></li>
+      </ul>
     </div>
-    
+
     <div class="container">
       <% if policy(@car).update? %>
         <%= link_to car_path(@car), method: :delete, data: { confirm: "Are you sure?" } do %>

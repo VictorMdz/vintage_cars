@@ -14,4 +14,8 @@ class Booking < ApplicationRecord
   def duration
     ((ending_date - starting_date) / 3600).to_i
   end
+
+  def user_name
+    user.full_name
+  end
 end
