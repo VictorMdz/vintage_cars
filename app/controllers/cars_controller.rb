@@ -139,6 +139,7 @@ before_action :check_display_index, only: [ :index ]
       "70's": 1970..1979,
       "80's": 1980..1989
     }
+  end
 
   def check_display_index
     @your_index = !params[:user_id].present? 

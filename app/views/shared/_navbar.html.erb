@@ -11,7 +11,11 @@
           <div class="btn-group">
 
             <a type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%if current_user.picture.attached?%>
+              <%= cl_image_tag current_user.picture.key, :quality=>100, class: 'avatar'%>
+            <%else%>
               <i class="fas fa-user-circle fa-2x"></i>
+             <%end%> 
             </a>
             <div class="dropdown-menu dropdown-position">
               <%=link_to "My Cars", user_cars_path(current_user), class: "dropdown-item" %>
