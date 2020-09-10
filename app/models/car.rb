@@ -9,12 +9,18 @@ class Car < ApplicationRecord
   validates :price_per_hour, presence: true
 
   include PgSearch::Model
-  pg_search_scope :search_by_brand_model_location,
-    against: [ :brand, :model, :location ],
+  pg_search_scope :search_and_filter,
+    # against: [ :brand, :model, :location ],
+    against: [ :brand, :model, :location,
+              :year, :price_per_hour,
+              :color, :energy_source,
+              :transmission ],
     using: {
-      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+      tsearch: { prefix: true }
     }
 
+  scope :by_price, -> (price) { where('price_per_hour <= ?', price.to_i) }
+  scope :by_year, -> (years) { where(year: years) }
 
   def price_in_euros
     price_per_hour / 100
