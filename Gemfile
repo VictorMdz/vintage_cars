@@ -66,3 +66,5 @@ gem 'devise'
 gem 'cloudinary', '~> 1.16.0'
 
 gem 'pundit'
+
+gem 'geocoder'

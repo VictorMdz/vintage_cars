@@ -10,6 +10,9 @@ class Car < ApplicationRecord
   validates :location, presence: true
   validates :price_per_hour, presence: true
 
+  geocoded_by :location
+  after_validation :geocode, if: :will_save_change_to_location?
+  
 
   def price_in_euros
     price_per_hour / 100

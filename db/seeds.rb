@@ -42,6 +42,8 @@ car_1 = Car.new(
 )
 car_1.save!
 
+sleep(1)
+
 car_2 = Car.new(
   user_id: user_2.id,
   brand: "Jaguar", 
@@ -58,6 +60,8 @@ car_2 = Car.new(
 )
 car_2.save!
 
+sleep(1)
+
 car_3 = Car.new(
   user_id: user_3.id,
   brand: "Maseraty", 
@@ -70,9 +74,11 @@ car_3 = Car.new(
   transmission: "Manual",
   energy_source: "Diesel",
   price_per_hour: "59",
-  location: "Tokio"
+  location: "Vienna"
 )
 car_3.save!
+
+sleep(1)
 
 car_4 = Car.new(
   user_id: user_4.id,
@@ -86,9 +92,11 @@ car_4 = Car.new(
   transmission: "Manual",
   energy_source: "Gasoline",
   price_per_hour: "39",
-  location: "Lima"
+  location: "Dublin"
 )
 car_4.save!
+
+sleep(1)
 
 car_5 = Car.new(
   user_id: user_1.id,
@@ -106,6 +114,8 @@ car_5 = Car.new(
 )
 car_5.save!
 
+sleep(1)
+
 car_6 = Car.new(
   user_id: user_2.id,
   brand: "Ford", 
@@ -121,6 +131,8 @@ car_6 = Car.new(
   location: "Paris"
 )
 car_6.save!
+
+sleep(1)
 
 car_7 = Car.new(
   user_id: user_3.id,
@@ -138,6 +150,8 @@ car_7 = Car.new(
 )
 car_7.save!
 
+sleep(1)
+
 car_8 = Car.new(
   user_id: user_4.id,
   brand: "Ferrari", 
@@ -153,6 +167,8 @@ car_8 = Car.new(
   location: "Madrid"
 )
 car_8.save!
+
+sleep(1)
 
 car_9 = Car.new(
   user_id: user_1.id,
@@ -170,6 +186,8 @@ car_9 = Car.new(
 )
 car_9.save!
 
+sleep(1)
+
 car_10 = Car.new(
   user_id: user_2.id,
   brand: "Dodge", 
@@ -185,6 +203,8 @@ car_10 = Car.new(
   location: "Tokio"
 )
 car_10.save!
+
+sleep(1)
 
 car_11 = Car.new(
   user_id: user_3.id,
@@ -202,6 +222,8 @@ car_11 = Car.new(
 )
 car_11.save!
 
+sleep(1)
+
 car_12 = Car.new(
   user_id: user_4.id,
   brand: "Toyota", 
@@ -217,6 +239,8 @@ car_12 = Car.new(
   location: "Paris"
 )
 car_12.save!
+
+sleep(1)
 
 car_13 = Car.new(
   user_id: user_1.id,
@@ -234,6 +258,8 @@ car_13 = Car.new(
 )
 car_13.save!
 
+sleep(1)
+
 car_14 = Car.new(
   user_id: user_2.id,
   brand: "Datsun", 
@@ -249,6 +275,8 @@ car_14 = Car.new(
   location: "Roma"
 )
 car_14.save!
+
+sleep(1)
 
 car_15 = Car.new(
   user_id: user_3.id,
