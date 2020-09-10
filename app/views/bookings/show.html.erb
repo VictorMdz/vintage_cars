@@ -1,7 +1,15 @@
-<ul class="list-group m-5">
-  <li class="list-group-item">You booked the car for: <strong><%= @booking.duration %></strong>  hours</li>
-  <li class="list-group-item">Final price: <strong> €<%= @booking.final_price_euros %></strong> </li>
-  <li class="list-group-item list-group-item-warning"><%= @booking.status.capitalize %></li>
-</ul>
+<div class="container">
+  <ul class="list-group m-5">
+    <li class="list-group-item">You booked the car for: <strong><%= @booking.duration %></strong>  hours</li>
+    <li class="list-group-item">Final price: <strong> €<%= @booking.final_price_euros %></strong> </li>
+    <% if @booking.status == 'pending' %>
+      <li class="card-text list-group-item list-group-item-warning py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+    <% elsif @booking.status == 'accepted' %>
+      <li class="card-text list-group-item list-group-item-success py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+    <% else %>
+      <li class="card-text list-group-item list-group-item-danger py-2 text-center rounded"><%= @booking.status.capitalize %></li>
+    <% end %>
+  </ul>
+</div>
 
 <%= link_to "Back to all cars", cars_path, class: "m-5" %>

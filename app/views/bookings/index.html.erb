@@ -10,6 +10,10 @@
             <h5 class="card-title"><%= booking.car.brand %> | <%= booking.car.model %></h5>
             <p class="card-text">Duration of booking: <%= booking.duration %> hours</p>
             <p class="card-text">Total price: <%= booking.final_price_euros %>€</p>
+            <div class="inline-block d-flex align-items-center mt-auto mb-2">
+                <i class="fas fa-user-circle fa-2x mr-2"></i>
+                <p class="text-muted m-0"><%= booking.user_name %></p>
+            </div>
             <% if booking.status == 'pending' %>
               <p class="card-text list-group-item-warning py-2 text-center rounded"><%= booking.status.capitalize %></p>
             <% elsif booking.status == 'accepted' %>

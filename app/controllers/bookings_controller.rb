@@ -3,9 +3,25 @@ class BookingsController < ApplicationController
 
   def index
     # @bookings = Booking.all
-    @bookings = policy_scope(Booking)
+    @bookings = policy_scope(Booking).includes(:car)
 
-    @bookings = @bookings.where(user_id: current_user.id)
+    if params[:user_id].present?
+      @bookings = @bookings.where(cars: { user_id: current_user.id })
+    else
+      @bookings = @bookings.where(user_id: current_user.id)
+    end
+
+
+    # if !params[:user_id].present?
+    #   @bookings = @bookings.where(user_id: current_user.id)
+    # else
+    #   @bookings = @bookings.where(user_id: current_user.id)
+    #   # @cars =
+    #   # @car_bookings = @car.bookings.where status: "pending"
+    #   # @bookings = @bookings.where(current_user.id == @car.user_id)
+    # end
+
+
   end
 
 
