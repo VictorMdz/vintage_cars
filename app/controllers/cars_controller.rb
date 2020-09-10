@@ -26,8 +26,15 @@ before_action :set_car, only: [:show, :edit, :update, :destroy]
   end
 
   def show
+    # if current_user.id = @bookings.where(user_id: current_user.id)
     @booking = Booking.new
     authorize @car
+
+    @car_bookings = @car.bookings.where status: "pending"
+
+
+
+
   end
 
   def new
