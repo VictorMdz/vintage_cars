@@ -25,16 +25,16 @@
   <p><i class="fas fa-map-marker-alt"></i> <%= @car.location %></p>
 </div>
 
-<div class= "container my-5">
+<div class= "container my-5 border-bottom">
   <div class="row d-flex justify-content-between">
-   <div class="col-6 py-5 border-top border-bottom">
+    <div class="col-6 py-5 border-top border-bottom">
       <h3 class="mb-3"><strong>About the car:</strong></h3>
       <p><%= @car.description %></p>
     </div>
 
 
     <% if (!policy(@car).update?) %>
-      <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100">
+      <div class="col-4 p-4 card-rent shadow-lg sticky-top h-100 mb-5">
         <div>
           <h3><%= @car.price_per_hour%>€ <span class="price-hour">/hour</span></h3>
         </div>
@@ -63,8 +63,8 @@
                 <p> <strong> Starting date </strong>: <%= booking.starting_date.to_s.gsub('UTC', '') %> </p>
                 <p> <strong>Ending date </strong>: <%= booking.ending_date.to_s.gsub('UTC', '') %> </p>
                 <div class="inline-block d-flex align-items-center mt-auto">
-                    <i class="fas fa-user-circle fa-2x mr-2"></i>
-                    <p class="text-muted m-0"><%= booking.user_name %></p>
+                  <i class="fas fa-user-circle fa-2x mr-2"></i>
+                  <p class="text-muted m-0"><%= booking.user_name %></p>
                 </div>
                 <div class="text-right pb-4 d-flex justify-content-end">
                   <div class="mr-1">
@@ -110,6 +110,79 @@
             <%= link_to "Back to all cars", cars_path, class: "m-2 badge badge-pill badge-light larger-font-size thinner-font-size" %>
           </div>
         <% end %>
+    
+<div class="container">
+  <% if policy(@car).update? %>
+    <div class="row">
+      <div class="col-6">
+        <div id="review">
+          <% if @car.reviews.blank? %>
+            <h2 class="font-weight-bold mb-5">Your car has <%= pluralize @car.reviews.size, "review" %></h2>
+          <% else %>
+            <h2 class="font-weight-bold mb-5">Your car has <%= pluralize @car.reviews.size, "review" %></h2>
+            <% @car.reviews.each do |review| %>
+              <% review.rating.times do %>
+                  <i class="fas fa-star text-warning"></i>
+                <% end %>
+                <% x = 5 - review.rating %>
+                <% x.times do  %>
+                  <i class="far fa-star text-warning"></i>
+                <% end %>
+              <p class="mt-2"><%= review.content %></p>
+            <% end %>
+          <% end %>
+        </div>
+
+  <% else %>
+    <div class="row">
+      <% if @car.reviews.blank? %>
+        <div class="col-6">
+          <h2 class="font-weight-bold mb-5">This car has <%= pluralize @car.reviews.size, "review" %></h2>
+        </div>
+        <div class="col-6">
+          <h3 class="font-weight-bold mb-5 mt-1"> Create a review</h3>
+          <%= simple_form_for([ @car, @review ], method: :post) do |f| %>
+            <div class="form-group">
+                <%= f.input :rating, as: :numeric %>
+            </div>
+            <div class="form-group">
+              <%= f.input :content, as: :text %>
+            </div>
+            <%= f.button :submit, class: "btn btn-dark mr-2 rounded-pill" %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="col-6">
+          <h2 class="font-weight-bold mb-5">This car has <%= pluralize @car.reviews.size, "review" %></h2>
+            <% @car.reviews.each do |review| %>
+              <% review.rating.times do %>
+                <i class="fas fa-star text-warning"></i>
+              <% end %>
+              <% x = 5 - review.rating %>
+              <% x.times do  %>
+                <i class="far fa-star text-warning"></i>
+              <% end %>
+              <p class="mt-2"><%= review.content %></p>
+            <% end %>
+        </div>
+        <div class="col-6">
+          <h3 class="font-weight-bold mb-5 mt-1"> Create a review</h3>
+          <%= simple_form_for [ @car, @review ] do |f| %>
+            <div class="form-group">
+                <%= f.input :rating, as: :numeric %>
+            </div>
+            <div class="form-group">
+              <%= f.input :content, as: :text %>
+            </div>
+            <%= f.button :submit, class: "btn btn-dark mr-2 rounded-pill" %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-  </div>
+
+
+
+      </div>
+    </div>
+  <% end %>
 </div>

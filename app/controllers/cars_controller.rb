@@ -60,13 +60,11 @@ before_action :check_display_index, only: [ :index ]
   def show
     # if current_user.id = @bookings.where(user_id: current_user.id)
     @booking = Booking.new
+    @review = Review.new
+
     authorize @car
 
     @car_bookings = @car.bookings.where status: "pending"
-
-
-
-
   end
 
   def new
