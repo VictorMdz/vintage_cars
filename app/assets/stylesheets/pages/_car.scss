@@ -6,6 +6,8 @@
 .card-rent {
   border: 1px solid #e2e2e2;
   border-radius: 15px;
+  position: sticky;
+  top: 90px;
 }
 
 .price-hour {
@@ -14,20 +16,22 @@
 
 .btn-book {
   display: inline-block;
-  background-color: #090909;
-  border: 2px solid #090909;
-  color: #fff;
+  background-color: #24282C;
+  border: 2px solid #24282C;
+  color: #FFFFFF;
   padding: 15px 40px;
   border-radius: 15px;
   text-decoration: none;
   margin-bottom: 15px;
   width: 100%;
+  font-size: 17px;
 }
 
 .btn-book:hover {
   text-decoration: none;
-  background-color: #fff;
-  color: #090909;
-  border: 2px solid #090909;
+  background-color: #FFFFFF;
+  color: #24282C;
+  border: 2px solid #24282C;
+  transition: all .4s ease;
 }
 

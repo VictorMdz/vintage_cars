@@ -1,11 +1,11 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name), class: 'text-primary' %><br />
+  <%= link_to "Log in", new_session_path(resource_name), class: 'badge badge-pill badge-light larger-font-size thinner-font-size p-2' %><br />
 <% end %>
 
 <ul class="list-inline">
   <li class="list-inline-item">
     <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-      <%= link_to "Sign up", new_registration_path(resource_name), class: 'text-primary' %><br />
+      <%= link_to "Sign up", new_registration_path(resource_name), class: 'badge badge-pill badge-light larger-font-size thinner-font-size p-2' %><br />
     <% end %>
   </li>
   <li class="list-inline-item">
