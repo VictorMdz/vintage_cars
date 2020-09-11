@@ -74,14 +74,14 @@
                   <i class="fas fa-user-circle fa-2x mr-2"></i>
                   <p class="text-muted m-0"><%= car.user_name %></p>
                 </div>
-
+            
               <div class="inline-block d-flex align-items-center mt-auto">
                 <%if car.user.picture.attached?%>
-                  <%= cl_image_tag car.user.picture.key, :quality=>100, class: 'avatar'%>
+                  <%= cl_image_tag car.user.picture.key, :quality=>100, class: 'avatar-second'%>
                 <%else%>
                 <i class="fas fa-user-circle fa-2x mr-2"></i>
                 <%end%>
-                <p class="text-muted m-0"><%= car.user_name %></p>
+                <p class="text-muted m-2"><%= car.user_name %></p>
               </div>
             </div>
           <% end %>
