@@ -1,6 +1,5 @@
 <div class="main-container">
-    <div class="content">
-
+  <div class="content">
       <div class="header-container pl-4 my-4">
         <div class="row w-100 pt-4">
             <div class="col mb-2">
@@ -37,14 +36,13 @@
                 <% end %>
               </div>
               <p class= "mt-5">Cars available: <%= @cars.length %></p>
-          </div>
+            </div>
         </div>
       </div>
 
       <div class="<%= @your_index ? "results" : "results-mycars" %> ">
           <% @cars.each_with_index do |car, index| %>
             <div class="card card-rounded">
-              <!-- for when we implement cloudinary -->
               <div id="carouselExampleIndicators-<%= index %>" class="carousel slide" data-interval="false" data-ride="carousel">
                 <div class="carousel-inner">
                   <% car.photos.each_with_index do |photo, index| %>
@@ -73,8 +71,20 @@
                 <div class="inline-block d-flex align-items-center mt-auto">
                   <i class="fas fa-user-circle fa-2x mr-2"></i>
                   <p class="text-muted m-0"><%= car.user_name %></p>
-                </div>
-            
+                </div>            
+
+            <div class="card-body d-flex flex-column">
+              <div class="card-details">
+                <h5 class="card-title font-weight-bold"><%= link_to "#{car.brand} | #{car.model}", car_path(car) %></h5>
+                <p class="card-text mb-3"><%= car.price_per_hour %>€/hour</p>
+              </div>
+              <div class="inline-block d-flex align-items-center mt-auto">
+                <i class="fas fa-user-circle fa-2x mr-2"></i>
+                <p class="text-muted m-0"><%= car.user_name %></p>
+              </div>
+              </div>
+
+
               <div class="inline-block d-flex align-items-center mt-auto">
                 <%if car.user.picture.attached?%>
                   <%= cl_image_tag car.user.picture.key, :quality=>100, class: 'avatar-second'%>
@@ -83,14 +93,14 @@
                 <%end%>
                 <p class="text-muted m-2"><%= car.user_name %></p>
               </div>
+
             </div>
           <% end %>
       </div>
-    </div>
-    <div class="map-container">
-      <%= render 'shared/map' if @your_index %>
-    </div>
+  </div>
 
+  <div class="map-container">
+      <%= render 'shared/map' if @your_index %>
+  </div>
 
 </div>
-
