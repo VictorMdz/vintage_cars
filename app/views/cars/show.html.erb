@@ -29,7 +29,7 @@
   <div class="row d-flex justify-content-between">
     <div class="col-6 py-5 border-top border-bottom">
       <h3 class="mb-3"><strong>About the car:</strong></h3>
-      <p><%= @car.description %></p>
+      <p><%= @car.description.html_safe %></p>
     </div>
 
 
@@ -110,10 +110,12 @@
             <%= link_to "Back to all cars", cars_path, class: "m-2 badge badge-pill badge-light larger-font-size thinner-font-size" %>
           </div>
         <% end %>
+
 </div>
 </div>
 
 <div class="container border-top">
+
   <% if policy(@car).update? %>
     <div class="row mt-5">
       <div class="col-6">
