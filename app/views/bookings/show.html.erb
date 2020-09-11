@@ -42,7 +42,7 @@
         <% end %>
         </div>
         <div class="text-center mt-3 ml-3">
-          <p> <%= link_to "Back to all your requested bookings", user_bookings_path(current_user), class: "m-5 badge badge-pill badge-light larger-font-size thinner-font-size" %> </p>
+          <%= link_to "Back to all your requested bookings", user_bookings_path(current_user), class: "m-2 badge badge-pill badge-light larger-font-size thinner-font-size" %>
         </div>
       <% else %>
         <% if @booking.status == 'pending' %>
@@ -60,7 +60,7 @@
         <% end %>
         </div>
         <div class="text-center mt-3 ml-3">
-          <p> <%= link_to "Back to all your bookings", bookings_path, class: "m-5 badge badge-pill badge-light larger-font-size thinner-font-size" %> </p>
+          <%= link_to "Back to all your bookings", bookings_path, class: "m-2 badge badge-pill badge-light larger-font-size thinner-font-size" %>
         </div>
       <% end %>
 </div>
