@@ -110,7 +110,7 @@ sleep(1)
 
 car_5 = Car.new(
   user_id: user_1.id,
-  brand: "Merceds-Benzs",
+  brand: "Mercedes-Benz",
   model: "190SL",
   description: "The doors are only part of the reason this is one of the coolest cars to ever hit the pavement. The fact that the 300SL was the fastest production car at the time, means driving to your ad meetings in Manhattan wouldn’t be a bore.
   
@@ -351,7 +351,7 @@ sleep(1)
 
 car_17 = Car.new(
   user_id: user_2.id,
-  brand: "Triumph",
+  brand: "Ford",
   model: "Spitfire",
   description: "This ‘78 Triumph Spitfire has been a show car and is ready for you to take a spin! Rare functioning overdrive and new upholstery. Available for all types of events.
   
@@ -371,7 +371,7 @@ sleep(1)
 
 car_18 = Car.new(
   user_id: user_3.id,
-  brand: "Buick",
+  brand: "International",
   model: "Centurion",
   description: "This ‘78 Triumph Spitfire has been a show car and is ready for you to take a spin! Rare functioning overdrive and new upholstery. Available for all types of events.
   
@@ -431,7 +431,7 @@ sleep(1)
 
 car_21 = Car.new(
   user_id: user_2.id,
-  brand: "Oldsmobile",
+  brand: "International",
   model: "Cutlass",
   description: "You'll have to find one that specializes in this type of loan. Each company has its own definitions, so be sure that you fully understand whether you will be able to obtain a specialized loan or insurance policy before putting cash.
   
@@ -451,7 +451,7 @@ sleep(1)
 
 car_22 = Car.new(
   user_id: user_3.id,
-  brand: "Morgan",
+  brand: "Toyota",
   model: "Plus 4",
   description: "The Classic Car Club of America is even stricter in their description of classics. They only consider cars between the years 1915 and 1948 to be classic. The CCCA goes another step further, and only includes vehicles 'distinguished by their respective fine design, high engineering standards and superior workmanship.'
   
@@ -472,7 +472,7 @@ sleep(1)
 
 car_23 = Car.new(
   user_id: user_4.id,
-  brand: "Pontiac",
+  brand: "Nissan",
   model: "Trans AM",
   description: "You'll have to find one that specializes in this type of loan. Each company has its own definitions, so be sure that you fully understand whether you will be able to obtain a specialized loan or insurance policy before putting cash.
   
@@ -536,7 +536,7 @@ sleep(1)
 
 car_26 = Car.new(
   user_id: user_3.id,
-  brand: "International",
+  brand: "Mercedes-Benz",
   model: "Scout 800",
   description: "The Classic Car Club of America is even stricter in their description of classics. They only consider cars between the years 1915 and 1948 to be classic. The CCCA goes another step further, and only includes vehicles 'distinguished by their respective fine design, high engineering standards and superior workmanship.'
   
@@ -678,7 +678,7 @@ sleep(1)
 
 car_33 = Car.new(
   user_id: user_1.id,
-  brand: "Triumph",
+  brand: "Ferrari",
   model: "Spitfire",
   description: "This ‘78 Triumph Spitfire has been a show car and is ready for you to take a spin! Rare functioning overdrive and new upholstery. Available for all types of events. Suspendisse mollis quam orci, sed iaculis tortor dictum ac. Proin a enim nec libero volutpat condimentum. 
   
@@ -695,3 +695,26 @@ car_33 = Car.new(
 car_33.save!
 
 sleep(1)
+
+
+
+car_34 = Car.new(
+  user_id: user_4.id,
+  brand: "Maserati",
+  model: "Don Mafia",
+  description: "This ‘78 Triumph Spitfire has been a show car and is ready for you to take a spin! Rare functioning overdrive and new upholstery. Available for all types of events. Suspendisse mollis quam orci, sed iaculis tortor dictum ac. Proin a enim nec libero volutpat condimentum. 
+  
+  Nunc in sem ut sapien placerat semper. Praesent sollicitudin massa eu justo dignissim, ac rutrum nisi scelerisque. Phasellus scelerisque varius turpis et tincidunt. In ornare, velit accumsan sollicitudin auctor, nunc erat rutrum sem, ac.",
+  year: "1961",
+  license_plate: "PO3244",
+  seats: "2",
+  color: "Black",
+  transmission: "Manual",
+  energy_source: "Gasoline",
+  price_per_hour: "55",
+  location: "Milan"
+)
+car_34.save!
+
+sleep(1)
+
