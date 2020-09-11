@@ -1,7 +1,6 @@
 .inline-block {
 }
 
-
 .cards {
   flex-grow: 1;
   display: grid;
@@ -30,3 +29,6 @@
   border-radius: 8px 8px 0px 0px;
 }
 
+.size-card {
+  max-width: 700px;
+}
