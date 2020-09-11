@@ -52,7 +52,7 @@ before_action :check_display_index, only: [ :index ]
         lat: car.latitude,
         lng: car.longitude,
         infoWindow: render_to_string(partial: "info_window", locals: { car: car }),
-        image_url: helpers.asset_url('logo.jpg')
+        image_url: "https://res.cloudinary.com/jantayreyes/image/upload/v1599823267/marker_ssuyhu.png"
       }
     end
   end
