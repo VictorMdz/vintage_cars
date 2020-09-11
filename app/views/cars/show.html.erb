@@ -86,7 +86,7 @@
     <% end %>
 
     <div class="col-6 py-5">
-      <div class="border-bottom mb-3">
+      <div class="mb-3">
         <h3 class="mb-3"><strong>Car specs:</strong></h3>
         <ul style="list-style-type:none" class="mb-5">
           <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
@@ -111,9 +111,13 @@
           </div>
         <% end %>
 
-<div class="container">
+</div>
+</div>
+
+<div class="container border-top">
+
   <% if policy(@car).update? %>
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-6">
         <div id="review">
           <% if @car.reviews.blank? %>
@@ -134,7 +138,7 @@
         </div>
 
   <% else %>
-    <div class="row">
+    <div class="row mt-5">
       <% if @car.reviews.blank? %>
         <div class="col-6">
           <h2 class="font-weight-bold mb-5">This car has <%= pluralize @car.reviews.size, "review" %></h2>
