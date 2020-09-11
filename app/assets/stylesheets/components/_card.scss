@@ -1,11 +1,17 @@
 .inline-block {
 }
 
-
 .cards {
   flex-grow: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
+
+.bookings-cards {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 16px;
 }
 
@@ -30,3 +36,6 @@
   border-radius: 8px 8px 0px 0px;
 }
 
+.size-card {
+  max-width: 700px;
+}

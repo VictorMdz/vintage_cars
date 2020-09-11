@@ -35,10 +35,10 @@ export default class extends Controller {
       element.className = 'marker';
       element.style.backgroundImage = `url('${marker.image_url}')`;
       element.style.backgroundSize = 'contain';
-      element.style.width = '25px';
-      element.style.height = '25px';
+      element.style.width = '33px';
+      element.style.height = '33px';
  
-      new mapboxgl.Marker()
+      new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(popup)
         .addTo(this.map);
