@@ -40,6 +40,10 @@
             <% end %>
           </div>
         <% end %>
+        </div>
+        <div class="text-center mt-3 ml-3">
+          <p> <%= link_to "Back to all your requested bookings", user_bookings_path(current_user), class: "m-5" %> </p>
+        </div>
       <% else %>
         <% if @booking.status == 'pending' %>
           <div class="card-text list-group-item list-group-item-warning py-2 text-center rounded">
@@ -54,10 +58,10 @@
             <%= @booking.status.capitalize %>
           </div>
         <% end %>
+        </div>
+        <div class="text-center mt-3 ml-3">
+          <p> <%= link_to "Back to all your bookings", bookings_path, class: "m-5" %> </p>
+        </div>
       <% end %>
-  </div>
-  <div class="text-center mt-3 ml-3">
-    <p> <%= link_to "Back to all bookings", bookings_path, class: "m-5" %> </p>
-  </div>
 </div>
 
