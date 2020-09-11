@@ -1,36 +1,66 @@
-<div class="container">
-  <ul class="list-group m-5">
-    <li class="list-group-item">You booked the car for: <strong><%= @booking.duration %></strong>  hours</li>
-    <li class="list-group-item">Final price: <strong> €<%= @booking.final_price_euros %></strong> </li>
-    <% if params[:user_id].present? %>
-      <% if @booking.status == 'accepted' %>
-        <li class="card-text list-group-item-success py-2 text-center rounded"><%= @booking.status.capitalize %></li>
-      <% elsif @booking.status == 'declined' %>
-        <li class="card-text list-group-item-danger py-2 text-center rounded"><%= @booking.status.capitalize %></li>
-      <% else %>
-        <div class="text-right d-flex justify-content-center m-0 ">
-          <div class="mr-1 p-0 mt-0">
+<div class="container mt-5">
+  <div class="card p-4 card-rounded size-card m-auto">
+    <div>
+      <h1 class="font-weight-bold">Booking for <%= @booking.car.year %> <%= @booking.car.brand%> <%= @booking.car.model %></h1>
+    </div>
+    <div class="inline-block d-flex align-items-center mt-auto">
+      <i class="fas fa-user-circle fa-2x mr-2"></i>
+      <p class="text-muted m-0"><%= @booking.car.user_name %></p>
+    </div>
+
+    <div class="mt-2">
+      <small> <%= @booking.car.color %> · <%= @booking.car.seats %> passengers · <%= @booking.car.transmission %> · <%= @booking.car.energy_source %> </small>
+    </div>
+    <div class="mt-4">
+      <p> <strong><%= @booking.duration %></strong> h - <strong><%= (@booking.duration) / 24 %></strong> days </p>
+    </div>
+
+    <p> <strong> Starting date </strong>: <%= @booking.starting_date.to_s.gsub('UTC', '') %> </p>
+    <p> <strong>Ending date </strong>: <%= @booking.ending_date.to_s.gsub('UTC', '') %> </p>
+
+    <div class="mb-4 text-center">
+      <h5 class="text-center"> Price: <strong> € <%= @booking.final_price_euros %></strong> </h5>
+    </div>
+      <% if @booking.car.user_id == current_user.id %>
+        <% if @booking.status == 'accepted' %>
+          <p class="card-text list-group-item-success py-2 text-center rounded"><%= @booking.status.capitalize %></p>
+        <% elsif @booking.status == 'declined' %>
+          <p class="card-text list-group-item-danger py-2 text-center rounded"><%= @booking.status.capitalize %></p>
+        <% else %>
+          <div class="text-right d-flex justify-content-center m-0 ">
+            <div class="mr-4 ml-2 p-0 mt-0">
+              <%= simple_form_for @booking, method: :patch do |f| %>
+                <%= f.input :status, :as => :hidden, :input_html => { :value => :accepted } %>
+                <%= f.submit "Accept", class: "btn btn-outline-success rounded-pill mt-0" %>
+              <% end %>
+            </div>
             <%= simple_form_for @booking, method: :patch do |f| %>
-              <%= f.input :status, :as => :hidden, :input_html => { :value => :accepted } %>
-              <%= f.submit "Accept", class: "btn btn-outline-success rounded-pill mt-0" %>
+              <%= f.input :status, :as => :hidden, :input_html => { :value => :declined } %>
+              <%= f.submit "Decline", class: "btn btn-outline-danger rounded-pill mt-0" %>
             <% end %>
           </div>
-          <%= simple_form_for @booking, method: :patch do |f| %>
-            <%= f.input :status, :as => :hidden, :input_html => { :value => :declined } %>
-            <%= f.submit "Decline", class: "btn btn-outline-danger rounded-pill mt-0" %>
-          <% end %>
+        <% end %>
+        </div>
+        <div class="text-center mt-3 ml-3">
+          <p> <%= link_to "Back to all your requested bookings", user_bookings_path(current_user), class: "m-5 badge badge-pill badge-light larger-font-size thinner-font-size" %> </p>
+        </div>
+      <% else %>
+        <% if @booking.status == 'pending' %>
+          <div class="card-text list-group-item list-group-item-warning py-2 text-center rounded">
+            <%= @booking.status.capitalize %>
+          </div>
+        <% elsif @booking.status == 'accepted' %>
+          <div class="card-text list-group-item list-group-item-success py-2 text-center rounded">
+            <%= @booking.status.capitalize %>
+          </div>
+        <% else %>
+          <div class="card-text list-group-item list-group-item-danger py-2 text-center rounded">
+            <%= @booking.status.capitalize %>
+          </div>
+        <% end %>
+        </div>
+        <div class="text-center mt-3 ml-3">
+          <p> <%= link_to "Back to all your bookings", bookings_path, class: "m-5 badge badge-pill badge-light larger-font-size thinner-font-size" %> </p>
         </div>
       <% end %>
-    <% else %>
-      <% if @booking.status == 'pending' %>
-        <li class="card-text list-group-item list-group-item-warning py-2 text-center rounded"><%= @booking.status.capitalize %></li>
-      <% elsif @booking.status == 'accepted' %>
-        <li class="card-text list-group-item list-group-item-success py-2 text-center rounded"><%= @booking.status.capitalize %></li>
-      <% else %>
-        <li class="card-text list-group-item list-group-item-danger py-2 text-center rounded"><%= @booking.status.capitalize %></li>
-      <% end %>
-    <% end %>
-  </ul>
 </div>
-
-<%= link_to "Back to all cars", cars_path, class: "m-5 badge badge-pill badge-light larger-font-size thinner-font-size" %>
