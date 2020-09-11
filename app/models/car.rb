@@ -1,6 +1,7 @@
 class Car < ApplicationRecord
   belongs_to :user
   has_many :bookings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many_attached :photos
 
   validates :brand, presence: true
@@ -13,7 +14,6 @@ class Car < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :search_and_filter,
-    # against: [ :brand, :model, :location ],
     against: [ :brand, :model, :location,
               :year, :price_per_hour,
               :color, :energy_source,
