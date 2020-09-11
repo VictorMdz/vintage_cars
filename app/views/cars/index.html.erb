@@ -63,6 +63,16 @@
                 </a>
               </div>
 
+              <div class="card-body d-flex flex-column">
+                <div class="card-details">
+                  <h5 class="card-title font-weight-bold"><%= link_to "#{car.brand} | #{car.model}", car_path(car) %></h5>
+                  <p class="card-text mb-3"><%= car.price_per_hour %>€/hour</p>
+                </div>
+                <div class="inline-block d-flex align-items-center mt-auto">
+                  <i class="fas fa-user-circle fa-2x mr-2"></i>
+                  <p class="text-muted m-0"><%= car.user_name %></p>
+                </div>            
+
             <div class="card-body d-flex flex-column">
               <div class="card-details">
                 <h5 class="card-title font-weight-bold"><%= link_to "#{car.brand} | #{car.model}", car_path(car) %></h5>
@@ -70,11 +80,11 @@
               </div>
               <div class="inline-block d-flex align-items-center mt-auto">
                 <%if car.user.picture.attached?%>
-                  <%= cl_image_tag car.user.picture.key, :quality=>100, class: 'avatar-second mr-2'%>
+                  <%= cl_image_tag car.user.picture.key, :quality=>100, class: 'avatar-second'%>
                 <%else%>
-                <i class="fas fa-user-circle fa-2x mr-2"></i>
+                  <i class="fas fa-user-circle fa-2x mr-2"></i>
                 <%end%>
-                <p class="text-muted m-0"><%= car.user_name %></p>
+                <p class="text-muted m-2"><%= car.user_name %></p>
               </div>
             </div>
 
