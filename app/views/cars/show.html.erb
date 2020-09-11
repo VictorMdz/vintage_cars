@@ -3,7 +3,10 @@
   <div class="carousel-inner carousel-photo-container">
     <% @car.photos.each_with_index do |photo, index| %>
       <div class="carousel-item <%= 'active' if index == 0 %>">
-        <%= cl_image_tag photo.key, :quality=>100, height: 500, class: 'card-img-top d-block image-carousel'%>
+        <%= cl_image_tag photo.key,
+        :quality => 100,
+        :height => 500,
+        class: 'card-img-top d-block img-carousel'%>
       </div>
     <% end %>
   </div>
@@ -23,8 +26,8 @@
 </div>
 
 <div class= "container my-5">
-  <div class="row d-flex">
-   <div class="col-7 my-5 mr-5">
+  <div class="row d-flex justify-content-between">
+   <div class="col-6 py-5 border-top border-bottom">
       <h3 class="mb-3"><strong>About the car:</strong></h3>
       <p><%= @car.description %></p>
     </div>
@@ -82,11 +85,11 @@
       <% end %>
     <% end %>
 
-    <div class="col-7 mr-5 py-5 border-top border-bottom">
+    <div class="col-6 py-5 border-bottom">
       <h3 class="mb-3"><strong>Car specs:</strong></h3>
       <ul style="list-style-type:none">
         <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
-        <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Seats: </strong><%= @car.seats %></p></li>
+        <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Passengers: </strong><%= @car.seats %></p></li>
         <li class="d-flex"> <i class="fas fa-car fa-2x m-2"></i><p class="m-2"><strong>License Plat: </strong><%= @car.license_plate %></p></li>
         <li class="d-flex"> <i class="fas fa-palette fa-2x m-2"></i><p class="m-2 "><strong>Color: </strong><%= @car.color %></p></li>
         <li class="d-flex"> <i class="fas fa-cog fa-2x m-2"></i><p class="m-2 "><strong>Transmission: </strong><%= @car.transmission %></p></li>
@@ -94,12 +97,10 @@
       </ul>
     </div>
 
-    <div class="container">
+    <div class="container my-5">
       <% if policy(@car).update? %>
-        <%= link_to car_path(@car), method: :delete, data: { confirm: "Are you sure?" } do %>
-          <button type="button" class="btn btn-danger rounded-pill mr-3">Delete</button>
-          <%= link_to "Edit", edit_car_path(@car), class: "btn btn-light rounded-pill"%>
-        <% end %>
+        <%= link_to "Delete", car_path(@car), class: "btn btn-danger rounded-pill mr-3", method: :delete, data: { confirm: "Are you sure?" } %>
+        <%= link_to "Edit", edit_car_path(@car), class: "btn btn-light rounded-pill"%>
       <% end %>
     </div>
   </div>
