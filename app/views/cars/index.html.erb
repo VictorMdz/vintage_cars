@@ -1,44 +1,55 @@
-<div class="main-container">
-  <div class="content">
+<% if @your_index %>
+  <div class="main-container">
+    <div class="content">
       <div class="header-container pl-4 my-4">
         <div class="row w-100 pt-4">
             <div class="col mb-2">
-              <p class= "mb-0">Cars available: <%= @cars.length %></p>
-              <h1 class="mb-3"><%= @your_index ? "Cars" : "My cars" %></h1>
               <div class="pt-2">
-                <h6 class="pb-1">Filters</h6>
+                <p class= "mb-0">Cars available: <%= @cars.length %></p>
+                <h1 class="font-weight-bold">All cars</h1>
+
                 <%= form_tag cars_path, method: :get do %>
-                  <div class="btn-group p-1 mb-2 ">
+                  <div class="btn-group mr-2 mb-2 ">
                     <%= select_tag :year, options_for_select(@years.keys, params[:year]), include_blank: "Year", class: 'btn btn-outline-dark rounded-pill' %>
                   </div>
-                  <div class="btn-group p-1 mb-2 ">
+                  <div class="btn-group mr-2 mb-2 ">
                     <%= select_tag :location, options_for_select(@locations, params[:location]), include_blank: "Location", class: 'btn btn-outline-dark rounded-pill' %>
                   </div>
-                  <div class="btn-group p-1 mb-2 ">
+                  <div class="btn-group mr-2 mb-2 ">
                     <%= select_tag :color, options_for_select(@colors, params[:color]), include_blank: "Color", class: 'btn btn-outline-dark rounded-pill' %>
                   </div>
-                  <div class="btn-group p-1 mb-2 ">
+                  <div class="btn-group mr-2 mb-2 ">
                     <%= select_tag :brand, options_for_select(@brands, params[:brand]), include_blank: "Brand", class: 'btn btn-outline-dark rounded-pill' %>
                   </div>
-                  <div class="btn-group p-1 mb-2 ">
+                  <div class="btn-group mr-2 mb-2 ">
                     <%= select_tag :energy_source, options_for_select(@energies, params[:energy_source]), include_blank: "Energy Source", class: 'btn btn-outline-dark rounded-pill' %>
                   </div>
-                  <div class="btn-group p-1 mb-2 ">
+                  <div class="btn-group mr-2 mb-2 ">
                     <%= select_tag :transmission, options_for_select(@transmissions, params[:transmission]), include_blank: "Transmission", class: 'btn btn-outline-dark rounded-pill' %>
                   </div>
-                  <div class="btn-group p-1 mb-2 ">
+                  <!-- <div class="btn-group p-1 mb-2 ">
                     <p>Max price € <%= number_field_tag :price%></p>
-                  </div>
-                  <div class="m-2">
+                  </div> -->
+                  <div class="mt-2">
                     <%= submit_tag "Apply filters", class: "btn btn-dark rounded-pill mr-1" %>
                     <%= link_to "Reset filters", cars_path %>
                   </div>
                 <% end %>
               </div>
-              <p class= "mt-5">Cars available: <%= @cars.length %></p>
             </div>
         </div>
       </div>
+    <% else %>
+      <div class="container my-5">
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <h1 class="font-weight-bold">My cars</h1>
+            <p class= "mb-0">Cars available: <%= @cars.length %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
 
       <div class="<%= @your_index ? "results" : "results-mycars" %> ">
           <% @cars.each_with_index do |car, index| %>
@@ -63,23 +74,21 @@
                 </a>
               </div>
 
-                  
-            <div class="card-body d-flex flex-column">
-              <div class="card-details">
-                <h5 class="card-title font-weight-bold"><%= link_to "#{car.brand} | #{car.model}", car_path(car) %></h5>
-                <p class="card-text mb-3"><%= car.price_per_hour %>€/hour</p>
-              </div>
-              <div class="inline-block d-flex align-items-center mt-auto">
-                <%if car.user.picture.attached?%>
-                  <%= cl_image_tag car.user.picture.key, :quality=>100, class: 'avatar-second'%>
-                <%else%>
-                  <i class="fas fa-user-circle fa-2x mr-2"></i>
-                <%end%>
-                <p class="text-muted m-2"><%= car.user_name %></p>
-              </div>
-            </div>
 
-
+              <div class="card-body d-flex flex-column">
+                <div class="card-details">
+                  <h5 class="card-title font-weight-bold"><%= link_to "#{car.brand} | #{car.model}", car_path(car) %></h5>
+                  <p class="card-text mb-3"><%= car.price_per_hour %>€/hour</p>
+                </div>
+                <div class="inline-block d-flex align-items-center mt-auto">
+                  <%if car.user.picture.attached?%>
+                    <%= cl_image_tag car.user.picture.key, :quality=>100, class: 'avatar-second'%>
+                  <%else%>
+                    <i class="fas fa-user-circle fa-2x mr-2"></i>
+                  <%end%>
+                  <p class="text-muted m-2"><%= car.user_name %></p>
+                </div>
+              </div>
             </div>
           <% end %>
       </div>
