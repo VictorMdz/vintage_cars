@@ -3,9 +3,13 @@
     <div>
       <h1 class="font-weight-bold">Booking for <%= @booking.car.year %> <%= @booking.car.brand%> <%= @booking.car.model %></h1>
     </div>
-    <div class="inline-block d-flex align-items-center mt-auto">
-      <i class="fas fa-user-circle fa-2x mr-2"></i>
-      <p class="text-muted m-0"><%= @booking.car.user_name %></p>
+    <div class="inline-block d-flex align-items-center mt-auto mb-2">
+      <%if @booking.user.picture.attached?%>
+        <%= cl_image_tag @booking.user.picture.key, :quality=>100, class: 'avatar-second'%>
+      <%else%>
+        <i class="fas fa-user-circle fa-2x mr-2"></i>
+      <%end%>
+        <p class="text-muted m-2"><%= @booking.user_name %></p>
     </div>
 
     <div class="mt-2">
