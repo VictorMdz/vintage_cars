@@ -85,23 +85,31 @@
       <% end %>
     <% end %>
 
-    <div class="col-6 py-5 border-bottom">
-      <h3 class="mb-3"><strong>Car specs:</strong></h3>
-      <ul style="list-style-type:none">
-        <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
-        <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Passengers: </strong><%= @car.seats %></p></li>
-        <li class="d-flex"> <i class="fas fa-car fa-2x m-2"></i><p class="m-2"><strong>License Plat: </strong><%= @car.license_plate %></p></li>
-        <li class="d-flex"> <i class="fas fa-palette fa-2x m-2"></i><p class="m-2 "><strong>Color: </strong><%= @car.color %></p></li>
-        <li class="d-flex"> <i class="fas fa-cog fa-2x m-2"></i><p class="m-2 "><strong>Transmission: </strong><%= @car.transmission %></p></li>
-        <li class="d-flex"> <i class="fas fa-gas-pump fa-2x m-2"></i><p class="m-2 "><strong>Energy Source: </strong><%= @car.energy_source %></p></li>
-      </ul>
-    </div>
-
-    <div class="container my-5">
-      <% if policy(@car).update? %>
-        <%= link_to "Delete", car_path(@car), class: "btn btn-danger rounded-pill mr-3", method: :delete, data: { confirm: "Are you sure?" } %>
-        <%= link_to "Edit", edit_car_path(@car), class: "btn btn-light rounded-pill"%>
-      <% end %>
+    <div class="col-6 py-5">
+      <div class="border-bottom mb-3">
+        <h3 class="mb-3"><strong>Car specs:</strong></h3>
+        <ul style="list-style-type:none" class="mb-5">
+          <li class="d-flex"> <i class="far fa-calendar-plus fa-2x m-2"></i><p class="m-2"><strong>Year: </strong><%= @car.year %></p></li>
+          <li class="d-flex"> <i class="fas fa-user-ninja fa-2x m-2"></i><p class="m-2 "><strong>Passengers: </strong><%= @car.seats %></p></li>
+          <li class="d-flex"> <i class="fas fa-car fa-2x m-2"></i><p class="m-2"><strong>License Plat: </strong><%= @car.license_plate %></p></li>
+          <li class="d-flex"> <i class="fas fa-palette fa-2x m-2"></i><p class="m-2 "><strong>Color: </strong><%= @car.color %></p></li>
+          <li class="d-flex"> <i class="fas fa-cog fa-2x m-2"></i><p class="m-2 "><strong>Transmission: </strong><%= @car.transmission %></p></li>
+          <li class="d-flex"> <i class="fas fa-gas-pump fa-2x m-2"></i><p class="m-2 "><strong>Energy Source: </strong><%= @car.energy_source %></p></li>
+        </ul>
+      </div>
+        <% if policy(@car).update? %>
+          <div class="container mt-2 d-flex justify-content-between align-items-end">
+              <div class="container mt-3">
+                <%= link_to "Delete", car_path(@car), class: "btn btn-danger rounded-pill mr-3", method: :delete, data: { confirm: "Are you sure?" } %>
+                <%= link_to "Edit", edit_car_path(@car), class: "btn btn-light rounded-pill mr-3"%>
+              </div>
+            <%= link_to "Back to all your cars", user_cars_path(current_user), class: "m-2 badge badge-pill badge-light larger-font-size thinner-font-size" %>
+          </div>
+        <% else %>
+          <div class="text-right mt-3 ml-3">
+            <%= link_to "Back to all cars", cars_path, class: "m-2 badge badge-pill badge-light larger-font-size thinner-font-size" %>
+          </div>
+        <% end %>
     </div>
   </div>
 </div>
