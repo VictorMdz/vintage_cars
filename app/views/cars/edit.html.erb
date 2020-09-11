@@ -10,7 +10,48 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-6 p-5 bg-light shadow-lg rounded">
-      <%= render "form", car: @car %>
+      <%= simple_form_for(@car) do |f| %>
+        <div class="form-inputs">
+          <div class="form-row">
+            <div class="col">
+              <%= f.input :brand, class: "form-control" %>
+            </div>
+            <div class="col">
+              <%= f.input :model, class: "form-control" %>
+            </div>
+          </div>
+          <%= f.input :license_plate %>
+          <div class="form-row">
+            <div class="col">
+              <%= f.input :year, class: "form-control" %>
+            </div>
+            <div class="col">
+              <%= f.input :location, class: "form-control" %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <%= f.input :seats, class: "form-control" %>
+            </div>
+            <div class="col">
+              <%= f.input :color, class: "form-control" %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <%= f.input :transmission, class: "form-control" %>
+            </div>
+            <div class="col">
+              <%= f.input :energy_source, class: "form-control" %>
+            </div>
+          </div>
+          <%= f.input :price_per_hour, as: :numeric %>
+          <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+          <%= f.input :description %>
+          <%= f.submit "Update car", class: "btn btn-dark rounded-pill p-2 m-2" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
+
